@@ -1,5 +1,16 @@
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef COMMON_H_INCLUDED
+#define COMMON_H_INCLUDED
+
+#include <iostream>
+#include <string>
+#include <list>
+#include <map>
+#include <set>
+
+typedef std::string tipoDocID;
+//typedef int tipoDocID;
+
+using namespace std;
 
 struct palabraPos {
     string palabra;

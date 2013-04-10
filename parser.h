@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef PARSER_H_INCLUDED
+#define PARSER_H_INCLUDED
 
 #include <iostream>
 #include <fstream>
