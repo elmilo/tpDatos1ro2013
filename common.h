@@ -7,12 +7,6 @@
 #include <map>
 #include <set>
 
-/**
-* Hay comparaciones, no reemplazar por tipo personalizado sin pensarlo
-*/
-typedef std::string tipoDocID;
-//typedef int tipoDocID;
-
 using namespace std;
 
 struct palabraPos {

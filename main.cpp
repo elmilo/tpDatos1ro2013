@@ -20,13 +20,13 @@ int main(int argc, char **argv){
     Parser unParser(dir1);
     unParser.filtrarPalabrasyPosicionEntrada(limite2);
     for (int i=0; i<limite2; i++){
-        eldicc.insertar(unParser.unNodo(i), dir1);
+        eldicc.insertar(unParser.unNodo(i), 2); //<-- Lo nuevo, le pasa unsigned como docID
         };
     
     Parser otroParser(dir2);
     otroParser.filtrarPalabrasyPosicionEntrada(limite);
     for (int i=0; i<limite; i++){
-        eldicc.insertar(otroParser.unNodo(i), dir2);
+        eldicc.insertar(otroParser.unNodo(i), 3);
         };
     
     eldicc.mostrar();

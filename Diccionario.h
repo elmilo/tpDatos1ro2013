@@ -7,12 +7,12 @@
 
 /**
  * Tipos personalizados: 
-*          - un mapa con docIDs (se puede cambiar en common.h) y clase lista de posiciones
-*          - un mapa con strings de palabras y el anterior.
+*          - un mapa con docIDs (unsigned) y clase lista de posiciones
+*          - otro mapa con strings de palabras y el anterior.
  * */
-typedef map<tipoDocID, PosicionesPorDocumento> mapa1;
-
-typedef map<string, mapa1> mapaDelDiccionario;
+typedef map<unsigned, PosicionesPorDocumento> listaD;
+//typedef vector<PosicionesPorDocumento> listaD;
+typedef map<string, listaD> mapaDelDiccionario;
 
 
 class Diccionario{
@@ -25,7 +25,7 @@ public:
 /**
  * Trata de insertar una palabra si corresponde, si no actualiza la lista
  * */
-void insertar(palabraPos termino, tipoDocID unDoc);
+void insertar(palabraPos termino, unsigned unDocID);
 
 /**
  * TEMPORAL

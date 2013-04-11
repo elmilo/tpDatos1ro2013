@@ -1,30 +1,30 @@
 #include "Diccionario.h"
 
 
-void Diccionario::insertar(palabraPos termino, tipoDocID unDoc){
+void Diccionario::insertar(palabraPos termino, unsigned unDocID){
 
 string unTermino = termino.palabra;
 unsigned int unaPosicion = termino.posicion;
 
 
 if (diccionario.count(unTermino) == 1){
-    if (diccionario[unTermino].count(unDoc)==1){
+    if (diccionario[unTermino].count(unDocID)==1){
         //El termino y el documento existen en el diccionario
-        diccionario[unTermino][unDoc].insertarPosicion(unaPosicion);
+        diccionario[unTermino][unDocID].insertarPosicion(unaPosicion);
         
         }else{
         //Significa que el termino existe, pero el mapa del documento no.
         PosicionesPorDocumento listado(unaPosicion);
-        diccionario[unTermino].insert(make_pair(unDoc, listado));
+        diccionario[unTermino].insert(make_pair(unDocID, listado));
         }
     }else{
     /**
      * No existe el termino en el mapa del diccionario, por ende se  
      * debe crear el mapa para ese termino y el del documento
      * */
-    mapa1 mapita;
+    listaD mapita;
     PosicionesPorDocumento listado(unaPosicion);
-    mapita[unDoc] = listado;
+    mapita[unDocID] = listado;
     
     diccionario.insert(make_pair(unTermino, mapita));
     }
@@ -35,7 +35,7 @@ if (diccionario.count(unTermino) == 1){
  * TEMPORAL
  * */
 void Diccionario::mostrar(){
-    mapa1::iterator interno;
+    listaD::iterator interno;
     mapaDelDiccionario::iterator externo;
 
   for (externo=diccionario.begin(); externo!=diccionario.end(); externo++){
