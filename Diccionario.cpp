@@ -6,16 +6,17 @@ void Diccionario::insertar(palabraPos termino, unsigned unDocID){
 string unTermino = termino.palabra;
 unsigned int unaPosicion = termino.posicion;
 
+unsigned docID = unDocID + 1; //Los guardo con el docID empezando de 1
 
 if (diccionario.count(unTermino) == 1){
-    if (diccionario[unTermino].count(unDocID)==1){
+    if (diccionario[unTermino].count(docID)==1){
         //El termino y el documento existen en el diccionario
-        diccionario[unTermino][unDocID].insertarPosicion(unaPosicion);
+        diccionario[unTermino][docID].insertarPosicion(unaPosicion);
         
         }else{
         //Significa que el termino existe, pero el mapa del documento no.
         PosicionesPorDocumento listado(unaPosicion);
-        diccionario[unTermino].insert(make_pair(unDocID, listado));
+        diccionario[unTermino].insert(make_pair(docID, listado));
         }
     }else{
     /**
@@ -24,7 +25,7 @@ if (diccionario.count(unTermino) == 1){
      * */
     listaD mapita;
     PosicionesPorDocumento listado(unaPosicion);
-    mapita[unDocID] = listado;
+    mapita[docID] = listado;
     
     diccionario.insert(make_pair(unTermino, mapita));
     }
