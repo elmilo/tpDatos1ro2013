@@ -1,17 +1,21 @@
 #include "Parser.cpp"
 #include "Diccionario.cpp"
-
+#include "ListadorDeArchivos.cpp"
 #include <iostream>
 
 int main(int argc, char **argv){
     
     Diccionario eldicc;
+    string directorio="textos";
+
+    int limite=150; //poner la cantidad de palabras del texto si son pocas!!
+    int limite2=100;
     
-    //string dir1="arch_entrada.txt";
-    string dir1="textos/arch1";
-    string dir2="textos/arch2";
-    int limite=4; //poner la cantidad de palabras del texto!!
-    int limite2=4;
+    
+    ListadorDeArchivos lister("textos");
+    
+    string dir1 = lister.documento(2); //<-- Lo nuevo, accede al texto 3 y al 4 abajo
+    string dir2 = lister.documento(3);
     
     Parser unParser(dir1);
     unParser.filtrarPalabrasyPosicionEntrada(limite2);

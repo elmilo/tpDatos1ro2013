@@ -92,5 +92,6 @@ int ListadorDeArchivos::tamanio(){
 
 string ListadorDeArchivos::documento(unsigned int i){
     if ( i<docIDs.size() )
-        return docIDs[i];
+        //Se podria devolver sin el SEPARADOR
+        return raizPpalStr + SEPARADOR_DIR + docIDs[i];
     };
