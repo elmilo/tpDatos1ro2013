@@ -30,6 +30,7 @@ int main(int argc, char **argv){
         };
     
     eldicc.mostrar();
+    cin.get();
         
 	return 0;
 }
