@@ -12,5 +12,8 @@
 *.la
 *.a
 
-parser.cpp
-parser.h
+# Eclipse proyect's files
+*.project
+*.cproject
+/Debug
+
