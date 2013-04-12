@@ -1,6 +1,6 @@
-#include "Parser.cpp"
-#include "Diccionario.cpp"
-#include "ListadorDeArchivos.cpp"
+#include "Parser.h"
+#include "Diccionario.h"
+#include "ListadorDeArchivos.h"
 #include <iostream>
 
 int main(int argc, char **argv){

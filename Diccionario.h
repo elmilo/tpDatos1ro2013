@@ -2,7 +2,7 @@
 #define DICCIONARIO_H_INCLUDED
 
 #include "common.h"
-#include "PosicionesPorDocumento.cpp"
+#include "PosicionesPorDocumento.h"
 
 
 /**
