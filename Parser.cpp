@@ -2,6 +2,7 @@
 
 Parser::Parser (string ficheroTxt){
     ficheroEntrada.open(ficheroTxt.c_str(),ios::in);
+    posicionTexto=0;
 }
 
 /*
@@ -77,6 +78,79 @@ void Parser::filtrarPalabrasyPosicionEntrada(int maxNodos){
 
 }
 
+
+/*
+*devuelve siguiete nodo del archivo
+*/
+
+
+palabraPos Parser::siguienteNodo(){
+
+char letra;
+ string linea;
+ int char_dec;
+ bool es_primera_palabra=false;
+ palabraPos nodo;
+ string palabra;
+ int posicion=0;
+ unsigned int longPalabra=0;
+ bool terminoPalabra=false;
+
+
+ if (ficheroEntrada) {
+    while(!(terminoPalabra)){
+        ficheroEntrada >> noskipws >> letra;
+
+
+        char_dec = static_cast<int>(letra);
+
+/*convierto mayusculas a minusculas*/
+
+        if (char_dec >=65 and char_dec <=90){
+                char_dec=char_dec+32;}
+
+
+/*toma solo las letras minusculas y controla el paso al archivo*/
+
+  if ((char_dec >=48 and char_dec <=57) or (  char_dec >=97 and char_dec <=122)) {
+        palabra.insert(palabra.end(),static_cast<char>(char_dec)) ;
+         longPalabra++;
+          posicionTexto++;
+         }
+
+  else {
+                if (!(longPalabra==0)){
+
+                    if (es_primera_palabra){posicion=0;}
+                    else{posicion=(posicionTexto-longPalabra);}
+
+                nodo.palabra=palabra;
+                nodo.posicion=posicion;
+                terminoPalabra=true;
+
+                }
+
+/*si la longitud es 0 significa que es un caracter no valido*/
+
+
+                longPalabra=0;
+                 palabra.clear();
+                 es_primera_palabra = false;
+
+         }
+
+ }
+
+ }
+
+ else cout << "Fichero inexistente" << endl;
+
+return nodo;
+}
+
+
+
+
 /*
 * no se usa
 */
@@ -88,11 +162,18 @@ void Parser::abrirArchivo(string archivotxt){
 * para mas adelante
 */
 void Parser::devolverGapsEntrepalabras (string entrada){
-    
-    
-    
-    
+
 }
+
+bool Parser::terminoArchivo (){
+
+	return ficheroEntrada.eof();
+
+}
+
+
+
+
 /*
 * temporalmente para obtener el listado
 */
