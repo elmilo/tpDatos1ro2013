@@ -14,3 +14,15 @@
 
 parser.cpp
 parser.h
+/common.h
+/Diccionario.cpp
+/Diccionario.h
+/EscritorArchivo.h
+/LectorArchivo.h
+/ListadorDeArchivos.cpp
+/ListadorDeArchivos.h
+/main.cpp
+/Parser.cpp
+/Parser.h
+/PosicionesPorDocumento.cpp
+/PosicionesPorDocumento.h
