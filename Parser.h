@@ -16,12 +16,17 @@ class Parser{
 ifstream ficheroEntrada;
     
 vector<palabraPos> vecpalabraPos;
+int posicionTexto;
 
 public:
 /*
  * 
  * */
+
+
 void filtrarPalabrasyPosicionEntrada(int maxNodos);
+
+palabraPos siguienteNodo();
 
 
 
@@ -32,9 +37,12 @@ Parser(string ficheroTxt);
 
 void listado(int cantidad);
 
+
 void abrirArchivo(string archivotxt);
 
 void devolverGapsEntrepalabras (string entrada);
+
+bool Parser::terminoArchivo ();
 
 palabraPos unNodo(unsigned int posicion);
 };

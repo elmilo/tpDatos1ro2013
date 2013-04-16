@@ -18,6 +18,8 @@ int main(int argc, char **argv){
     string dir2 = lister.documento(3);
     
     Parser unParser(dir1);
+
+
     unParser.filtrarPalabrasyPosicionEntrada(limite2);
     for (int i=0; i<limite2; i++){
         eldicc.insertar(unParser.unNodo(i), 2); //<-- Lo nuevo, le pasa unsigned como docID
