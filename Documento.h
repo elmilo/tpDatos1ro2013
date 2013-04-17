@@ -27,3 +27,4 @@ unsigned getDocID();
 };
 
 #endif
+

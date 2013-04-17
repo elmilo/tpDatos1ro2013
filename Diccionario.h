@@ -2,11 +2,7 @@
 #define DICCIONARIO_H_INCLUDED
 
 #include "common.h"
-//#include "Terminos.h"
-#include "Termino.cpp"
-
-
-
+#include "Terminos.h"
 
 
 class Diccionario{
@@ -21,8 +17,11 @@ private:
 
 bool Diccionario::buscarTermino(string unToken);
 
-    
 public:
+
+Diccionario(std::string repo, std::string dir);
+
+Diccionario();
 
 /**
  * Trata de insertar una palabra si corresponde, si no actualiza la lista
@@ -35,11 +34,7 @@ bool estaLleno();
 
 unsigned memoriaOcupada();
 
-/**
- * TEMPORAL
- * */
-//void mostrar();
-    
 };
+
 
 #endif

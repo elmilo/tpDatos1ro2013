@@ -1,50 +1,20 @@
-#ifndef PARSER_H_INCLUDED
-#define PARSER_H_INCLUDED
+#ifndef PARSER_H_
+#define PARSER_H_
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include "common.h"
-
-using namespace std;
-
-class Parser{
-
-/*
- * Puntero de lectura
- * */
-ifstream ficheroEntrada;
-    
-vector<palabraPos> vecpalabraPos;
-int posicionTexto;
-
+class Parser {
 public:
-/*
- * 
- * */
+	Parser(std::string dir);
+	tTermino nextTermino();
+	tDocId getDocIdActual();
+	tPos getPosActual();
+	bool tieneTerminos();
 
-
-void filtrarPalabrasyPosicionEntrada(int maxNodos);
-
-palabraPos siguienteNodo();
-
-
-
-/*
- * Constructores
- * */
-Parser(string ficheroTxt);
-
-void listado(int cantidad);
-
-
-void abrirArchivo(string archivotxt);
-
-void devolverGapsEntrepalabras (string entrada);
-
-bool Parser::terminoArchivo ();
-
-palabraPos unNodo(unsigned int posicion);
+private:
+	tTermino term;
+	tDocId docId;
+	tPos pos;
+>>>>>>> cdd94d93c4590a4371a2986f84fe9cbdedbed8cc
 };
 
-#endif
+
+#endif /* PARSER_H_ */

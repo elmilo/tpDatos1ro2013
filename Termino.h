@@ -2,8 +2,8 @@
 #define TERMINO_H_INCLUDED
 
 #include "common.h"
-//#include "Documento.h"
-#include "Documento.cpp"
+#include "Documento.h"
+
 
 typedef list< Documento* > ConjuntoDocumentos;
 typedef list< Documento* >::const_iterator IteradorDocumentos;
@@ -12,9 +12,6 @@ class Termino{
 
     string token;
     ConjuntoDocumentos documentos;
-
-
-private:
 
 
 IteradorDocumentos buscarDocumento(unsigned unDocID);
