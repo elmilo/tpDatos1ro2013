@@ -1,7 +1,7 @@
 OBJ = main.o Diccionario.o ListadorDeArchivos.o Parser.o PosicionesPorDocumento.o
 CXXFLAGS = -fmessage-length=0 -Wall
 CXXDEBUG = -O0 -g3
-CXXRELEASE = -O3
+#CXXRELEASE = -03
 
 all: debug
 

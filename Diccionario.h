@@ -2,35 +2,43 @@
 #define DICCIONARIO_H_INCLUDED
 
 #include "common.h"
-#include "PosicionesPorDocumento.h"
+//#include "Terminos.h"
+#include "Termino.cpp"
 
 
-/**
- * Tipos personalizados: 
-*          - un mapa con docIDs (unsigned) y clase lista de posiciones
-*          - otro mapa con strings de palabras y el anterior.
- * */
-typedef map<unsigned, PosicionesPorDocumento> listaD;
-//typedef vector<PosicionesPorDocumento> listaD;
-typedef map<string, listaD> mapaDelDiccionario;
+
 
 
 class Diccionario{
 
-mapaDelDiccionario diccionario;
+typedef set<Terminos*> ConjuntoTerminos;
+//typedef set<Terminos*>::const_iterator IteradorDiccionario;
+
+    ConjuntoTerminos diccionario;
 
 
+private:
+
+bool Diccionario::buscarTermino(string unToken);
+
+    
 public:
 
 /**
  * Trata de insertar una palabra si corresponde, si no actualiza la lista
  * */
-void insertar(palabraPos termino, unsigned unDocID);
+void agregar (string unToken, unsigned unaPosicion, unsigned unDocID);
+
+void agregar (Termino unTermino);
+
+bool estaLleno();
+
+unsigned memoriaOcupada();
 
 /**
  * TEMPORAL
  * */
-void mostrar();
+//void mostrar();
     
 };
 
