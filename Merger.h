@@ -10,5 +10,4 @@ private:
 	std::string outdir;
 };
 
-
 #endif

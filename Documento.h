@@ -3,26 +3,25 @@
 
 #include "common.h"
 
-
 using namespace std;
 
-class Documento{
+class Documento {
 private:
 
-typedef list<unsigned> ConjuntoOcurrencias;
+	typedef list<unsigned> ConjuntoOcurrencias;
 
-    unsigned docID; //Correspondiente al documento actual
-    ConjuntoOcurrencias ocurrencias; //lista de ocurrencias
+	unsigned docID; //Correspondiente al documento actual
+	ConjuntoOcurrencias ocurrencias; //lista de ocurrencias
 
 public:
 
-Documento(unsigned unDocID);
+	Documento(unsigned unDocID);
 
-void agregarOcurrencia(unsigned unaPosicion);
+	void agregarOcurrencia(unsigned unaPosicion);
 
-unsigned getFrecuencia();
+	unsigned getFrecuencia();
 
-unsigned getDocID();
+	unsigned getDocID();
 
 };
 

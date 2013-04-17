@@ -2,39 +2,34 @@
 #define DICCIONARIO_H_INCLUDED
 
 #include "common.h"
-#include "Terminos.h"
+#include "Termino.h"
 
+class Diccionario {
 
-class Diccionario{
-
-typedef set<Terminos*> ConjuntoTerminos;
+	typedef set<Termino*> ConjuntoTerminos;
 //typedef set<Terminos*>::const_iterator IteradorDiccionario;
 
-    ConjuntoTerminos diccionario;
-
+	ConjuntoTerminos diccionario;
 
 private:
 
-bool Diccionario::buscarTermino(string unToken);
+	bool buscarTermino(std::string unToken);
 
 public:
 
-Diccionario(std::string repo, std::string dir);
+	Diccionario(std::string repo, std::string dir);
 
-Diccionario();
+	Diccionario();
 
-/**
- * Trata de insertar una palabra si corresponde, si no actualiza la lista
- * */
-void agregar (string unToken, unsigned unaPosicion, unsigned unDocID);
+	/**
+	 * Trata de insertar una palabra si corresponde, si no actualiza la lista
+	 * */
+	void agregar(string unToken, unsigned unaPosicion, unsigned unDocID);
 
-void agregar (Termino unTermino);
+	void agregar(Termino unTermino);
 
-bool estaLleno();
-
-unsigned memoriaOcupada();
+	unsigned memoriaOcupada();
 
 };
-
 
 #endif

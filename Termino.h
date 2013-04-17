@@ -3,31 +3,31 @@
 
 #include "common.h"
 #include "Documento.h"
+#include <list>
 
+class Documento;
 
-typedef list< Documento* > ConjuntoDocumentos;
-typedef list< Documento* >::const_iterator IteradorDocumentos;
+typedef std::list<Documento*> ConjuntoDocumentos;
+typedef std::list<Documento*>::const_iterator IteradorDocumentos;
 
-class Termino{
+class Termino {
 
-    string token;
-    ConjuntoDocumentos documentos;
+	std::string token;
+	ConjuntoDocumentos documentos;
 
-
-IteradorDocumentos buscarDocumento(unsigned unDocID);
-
+	IteradorDocumentos buscarDocumento(unsigned unDocID);
 
 public:
 
-Termino (string unTermino);
+	Termino(std::string unTermino);
 
-void agregarPosicion (unsigned unaPosicion, unsigned unDocID);
+	void agregarPosicion(unsigned unaPosicion, unsigned unDocID);
 
-string getTermino();
+	std::string getTermino();
 
-bool operator== (Termino &rhs);
+	bool operator==(Termino &rhs);
 
-bool operator!= (Termino &rhs);
+	bool operator!=(Termino &rhs);
 
 };
 
