@@ -1,0 +1,53 @@
+%\begin{center}
+%    \includegraphics[scale=0.8]{./images/graf9}
+%    \includegraphics[width=0.4\textwidth]{./images/logoFiubaCompleto}
+%\end{center}
+
+\section{Parseo de términos}
+ 
+Todos  los términos estarán compuestos de una única palabra y se guardarán en el índice en letra minúscula. Se tomaron estas decisiones  basándose en que:
+\begin{itemize}
+
+
+\item No tiene sentido guardar términos de más de una palabra
+Se construirá un índice que estará preparado para buscar frases, esto quiere decir que se tendrán en cuenta la separación entre palabras dentro de un documento. Entonces guardar por ejemplo un sustantivo propio de más de una palabra “San Francisco” como un término único no agrega funcionalidad al momento de buscar esas dos palabras juntas. El usuario que realice una consulta y se quiera referir a esa ciudad, escribirá “san” e inmediatamente a continuación “francisco”.
+
+\item Se guardaran todos los términos en letra minúscula
+En un texto, puede haber palabras que comiencen con una letra mayúscula solo en 2 casos:
+
+\begin{itemize}
+\item es un sustantivo propio
+\item   está precedida por un punto “.”
+\end{itemize}
+
+Esto sería un problema si quisiéramos guardar términos de más de una palabra como en el ejemplo anterior ya que se complicaría enormemente para identificar “San Francisco” en el siguiente escenario: “… buenos momentos. San Francisco es …”.
+
+No hay forma de saber si San empieza con mayúscula porque es un sustantivo propio o porque está al lado de un punto. Por suerte, esto no será un problema, ya que se guardará todo en minúsculas.
+Que todo se guarde en minúsculas, también ayuda en la búsqueda, ya que el usuario del programa podría escribir mal sin poner las mayúsculas e igual encontrar lo que busca.
+
+\end{itemize}
+ 
+ 
+\subsection{Casos particulares de signos de puntuación}
+ 
+\begin{itemize}
+
+\item Guiones: si se encuentra un guion (medio o bajo) se toma como si fuese un espacio. Si el guion está dividiendo 2 palabras, se guarda cada palabra por separado como un término. También se reemplazan por espacios las ‘@’ y los ‘/’.
+
+\item Apóstrofe: por estar los textos de los repositorios en idioma inglés, conviene contemplar algunos casos del uso del apostrofe y como se los tratará, a través de los siguientes ejemplos:
+\begin{itemize}
+
+\item   “Grey’s Anatomy” en este caso, se guardarán los términos “grey” y “anatomy” por separado.
+\item   “Isn’t it?” se guardará “isn” y “it”.
+\item   “Baba O’Riley” este es interesante, porque no se puede sencillamente eliminar todo lo que hay después de la comilla simple. En este caso importa que se trate de un sustantivo propio y al identificarlo como tal, se guardará “baba” y “o’riley”.
+ \item  Caracteres que se ignoran: todos los caracteres que “encierran” conjuntos de palabras como son ¿?¡!()[]{}””’’. También se ignoran .:,;* \^{} +- \$ \# .
+
+\end{itemize}
+
+\item Números: los números se guardarán como términos comunes y silvestres. Por ejemplo:
+\begin{itemize}
+\item  “1.000” => “1000”
+\item “03/04/2004” => “03”, “04” y “2004”
+\end{itemize}
+
+\end{itemize}
