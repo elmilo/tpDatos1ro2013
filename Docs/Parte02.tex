@@ -5,10 +5,10 @@
 
 \section{Generación de términos}\label{sec:parser}
  
-Todos  los términos estarán compuestos de una única palabra y se guardarán en el índice en letra minúscula. Se tomaron estas decisiones en las siguientes directivas.
+Todos los términos estarán compuestos de una única palabra y se guardarán en el Diccionario con letras minúsculas. Se tomaron decisiones basándonos en las siguientes directivas.
 
 
-\subsection{No se guardarán guardarán términos de más de una palabra}
+\subsection{No se guardarán términos de más de una palabra}
 
 Aunque los indices tipo Nextword (próxima palabra) son capaces de otorgar velocidades de acceso superiores a los índices invertidos tradicionales, ocupan en promedio un 60 \% del espacio de la colección, según mencionan \citet{Williams99what'snext?} (\citeyear{Williams99what'snext?}). 
 
@@ -26,9 +26,7 @@ En un texto, puede haber palabras que contengan mayúsculas en los siguientes ca
 \item Mayúscula en medio de la palabra: porque es un código o abreviatura (<<IQJ653>>, <<PhD>>)
 \end{itemize}
 
-Esto sería un problema si quisiéramos guardar términos de más de una palabra como en el ejemplo anterior ya que se complicaría enormemente para identificar <<San Francisco>> en el siguiente escenario: <<… buenos momentos. San Francisco es …>>.
-
-No hay forma de saber si <<San>> empieza con mayúscula porque es un sustantivo propio o porque está al lado de un punto. Por suerte, esto no será un problema, ya que se guardará todo en minúsculas.
+Esto sería un problema si quisiéramos guardar términos de más de una palabra como en el ejemplo anterior ya que se complicaría enormemente para identificar <<San Francisco>> en el siguiente escenario: <<… buenos momentos. San Francisco es …>>. No hay forma de saber si <<San>> empieza con mayúscula porque es un sustantivo propio o porque está al lado de un punto. Por suerte, esto no será un problema, ya que se guardará todo en minúsculas.
 
 Que todo se guarde en minúsculas, también ayuda en la búsqueda, ya que el usuario del programa podría escribir de forma incorrecta sin poner las mayúsculas e igualmente encontrar lo que busca.
 
@@ -43,18 +41,23 @@ Que todo se guarde en minúsculas, también ayuda en la búsqueda, ya que el usu
 \item Apóstrofo: por estar los textos de la colección en idioma inglés, conviene contemplar algunos casos del uso del apostrofe y como se los tratará, a través de los siguientes ejemplos:
 \begin{itemize}
 
-\item   <<Grey’s Anatomy>> en este caso, se guardarán los términos <<grey>> y <<anatomy>> por separado.
-\item   <<Isn’t it?>> se guardará <<isn>> y <<it>>.
-\item   <<Baba O’Riley>> este es interesante, porque no se puede sencillamente eliminar todo lo que hay después de la comilla simple. En este caso importa que se trate de un sustantivo propio y al identificarlo como tal, se guardará <<baba>> y <<o’riley>>.
- \item  Caracteres que se ignoran: todos los caracteres que <<encierran>> conjuntos de palabras como son ¿?¡!()[]{}””’’. También se ignoran .:,;* \^{} +- \$ \# .
+\item  <<Grey’s Anatomy>>: en este caso, se guardarán los términos <<grey's>> y <<anatomy>> por separado.
+\item  <<Isn’t it?>>: se guardará <<isn't>> y <<it>>.
+\item  <<Baba O’Riley>>:  se guardará <<baba>> y <<o'riley>>.
+\item  Caracteres que se ignoran: todos los caracteres que no son alfanuméricos y <<encierran>> conjuntos de palabras como son \texttt{¿?¡!()[]{}}, comillas dobles, acentos graves y agudos.
+% ’’. 
+También se ignoran \texttt{.:,;~ * \^{} +- \$ \#} .
 
 \end{itemize}
 
-\item Números: los números se guardarán como términos comunes y silvestres. Por ejemplo:
+\end{itemize}
+
+\subsection{Números}
+
+Los números se guardarán como términos comunes y silvestres. Por ejemplo:
 
 \begin{itemize}
-\item  <<1.000>> => <<1000>>
-\item <<03/04/2004>> => <<03>>, <<04>> y <<2004>>
-\end{itemize}
-
+\item <<1000>> $\Longrightarrow$ <<1000>>
+%\item <<1.000>> $\Longrightarrow$ <<1.000>>
+\item <<03/04/2004>> $\Longrightarrow$ <<03>>, <<04>> y <<2004>>
 \end{itemize}
