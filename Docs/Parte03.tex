@@ -1,0 +1,11 @@
+\section{Creación del índice invertido}
+
+Se mostrará la creación a través de un ejemplo: se quiere indexar la carpeta <<vainilla>> la cual contiene 3 documentos.
+
+
+\subsection{Lectura del directorio y ordenamiento de los archivos}
+
+Luego de verificar que el directorio a indexar existe, se leen los nombres de \textit{todos} los documentos del mismo (consideramos que el directorio es de \textit{buena fe}), incluyendo los contenidos en carpetas interiores al directorio. Se los ordena alfabéticamente y se les asigna un docID correlativamente con el orden, es decir, el archivo que queda con el nombre en primera posición tiene el docID más bajo, es decir, 1 (uno). Así se sigue hasta el último documento.
+
+\subsection{Parseo de los archivos y creación del índice en memoria}
+
