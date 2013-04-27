@@ -13,10 +13,14 @@
 \usepackage{graphicx}
 % % % % % % % % % % % % % % % % % % % % % % Fuentes piola
 
-%Palatino
-\usepackage[sc]{mathpazo} %Smallcaps
-%\usepackage{mathpazo}
-\linespread{1.05} 
+
+\usepackage{cmbright}
+
+
+%Bibtex
+\usepackage[numbers]{natbib}
+
+
 
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
@@ -60,11 +64,18 @@
 %Fin declaraciones
 
 \begin{document}
+\bibliographystyle{plainnat}
 
-
+\include{Parte00}
 \include{Parte01}
 \include{Parte02}
 %etc
 %\include{Parte03}
+%\include{Referencias}
+
+
+
+
+\bibliography{Referencias}
 
 \end{document}
