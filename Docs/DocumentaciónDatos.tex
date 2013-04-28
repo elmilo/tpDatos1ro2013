@@ -20,8 +20,11 @@
 %Bibtex
 \usepackage[numbers]{natbib}
 
+\usepackage{amsmath}
 
-
+%\usepackage[T1]{fontenc}
+%\usepackage[scaled]{beramono}
+\usepackage{inconsolata}
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 %Microtype = estilo más refinado (?)
@@ -38,6 +41,20 @@
 \usepackage{multirow}
 \usepackage{tabularx} %tablas con mucho texto
 \usepackage{booktabs}
+
+%Listings para código fuente
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+%numbers=left,
+%numberstyle=\tiny,
+%frame=tb,
+resetmargins=true,
+%columns=fullflexible,
+showstringspaces=false,
+%numberstyle=\tiny\sffamily,
+%stepnumber=10,
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
@@ -75,11 +92,12 @@
 
 \include{Parte04}
 
+\include{Parte06}
+\include{Parte07}
+
 \include{Parte05}
 
-%\include{Parte06}
-
-
+\include{Parte08}
 
 
 

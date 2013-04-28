@@ -12,7 +12,13 @@ Se mostrará la creación del índice a través de un ejemplo: se quiere indexar
 
 \subsection{Lectura del directorio y asignaciones de docIDs}
 
-Luego de verificar que el directorio a indexar existe, se leen los nombres de \textbf{todos} los documentos del mismo (consideramos que el directorio es de \textit{buena fe}), incluyendo los contenidos en carpetas interiores. Se ordenan los nombres alfabéticamente y se les asigna un docID correlativamente con el orden, es decir, el archivo que queda con el nombre en primera posición tiene el docID más bajo, el cual en el esquema propuesto por nosotros, es 1 (uno). Así se sigue hasta el último documento.
+Luego de verificar que el directorio a indexar existe, se leen los nombres de \textbf{todos} los documentos del mismo (consideramos que el directorio es de \textit{buena fe}), incluyendo los contenidos en carpetas interiores. 
+
+Para asignar docIDs, tomamos un consejo de \citet[p.~216]{Buettcher2010}, (\citeyear{Buettcher2010}), pero no al pie de la letra. En la referencia, se ordenan los documentos según la cantidad de términos únicos que posea cada uno, porque cuántos más términos posea un documento, más probabilidad existe que los comparta con otro que también tiene muchos términos. Esto hace que las diferencias (\textit{gaps}) entre documentos se achique a la hora de la compresión.
+
+Seguir este enfoque para el TP demandaría potencialmente bastante más tiempo, por tener que procesar todos los documentos 2 veces. Por lo que nuestra propuesta es asignar docIDs según el tamaño del archivo, el archivo más pesado tiene docID $=$ 1, el siguiente, docID$=$2, y así hasta el último documento. No es lo mismo que la propuesta de \cite{Buettcher2010}, pero sigue el mismo lineamiento: los archivos más pesados \textit{probablemente} compartan la mayoría, o por lo menos gran parte, de sus términos.
+
+%Se ordenan los nombres alfabéticamente y se les asigna un docID correlativamente con el orden, es decir, el archivo que queda con el nombre en primera posición tiene el docID más bajo, el cual en el esquema propuesto por nosotros, es 1 (uno). Así se sigue 
 
 \subsection{Extracción de términos y creación del índice en memoria}
 
