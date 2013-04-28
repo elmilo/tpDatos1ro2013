@@ -35,7 +35,7 @@ Golomb comprime con un $b= 0.69 \times Promedio$ (promedio de todos los números
 (\noindent \textit{Adaptado de \citet[p.~5]{Delbru10adaptiveframe} (\citeyear{Delbru10adaptiveframe})})
 \\
 
-El método FOR determina el rango de posibles valores en una lista, llamada \textit\textbf{<<marco de referencia>>} y mapea cada valor adentro de este rango guardando suficientes bits para que los valores puedan ser distinguibles. 
+El método FOR para una lista de enteros determina el rango de valores posibles, llamado \textit\textbf{<<marco de referencia>>} y mapea cada valor adentro de este rango guardando suficientes bits para que los valores puedan ser distinguibles. 
 
 Por ejemplo, se tiene el siguiente listado (medianamente ordenado y con repetición): 
 \[\left< 107,108,110,115,120,125,132,132,131,135 \right> \]
@@ -46,7 +46,7 @@ Hay un beneficio fundamental de este método relacionado con el guardado de gran
 
 Dado un marco de referencia $[0, max]$, FOR necesita $\lceil \log_2(max+1) \rceil$ bits, llamados \textit{bits del marco}, para comprimir cada entero en el listado. 
 
-La principal desventaja de FOR es que es sensible a valores atípicos en un grupo de valores. Por ejemplo, si un listado de 1024 enteros contiene 1023 números inferiores a 16 y un solo valor superior a 128, los \textit{bits del marco} serán $\lceil \log_2(128+1) \rceil = 8$, desperdiciando 4 bits por cada otro valor.
+La principal desventaja de FOR es que es sensible a valores atípicos en la lista de enteros. Por ejemplo, si un listado de 1024 enteros contiene 1023 números inferiores a 16 y un solo valor superior a 128, los \textit{bits del marco} serán $\lceil \log_2(128+1) \rceil = 8$, desperdiciando 4 bits por cada otro valor.
 
 Sin embargo la compresión la compresión y descompresión se pueden hacer muy rápidamente, utilizando operaciones de muy poco coste para el CPU. Se utilizan para ello algoritmos con operaciones lógicas bit a bit como AND o SHIFT, sin estructuras de selección que demoran más tiempo en ejecutarse. Esta es la clave de los algoritmos FOR. Se ve un ejemplo en la Tabla \ref{tabla:FOR}.
 
