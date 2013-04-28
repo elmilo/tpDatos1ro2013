@@ -60,7 +60,7 @@ Definimos un <<posteo>> como el conjunto de un docID, frecuencia relativa y list
 
 \begin{itemize}
 
-\item Contiene 128 posteos almacenados como: 128 docIDs (almacenados como \textit{d-gaps}), luego 128 frecuencias relativas correspondientes y al final 128 listas de ocurrencias (guardadas como \textit{gaps} para cada docID). Los métodos de compresión serán, respectivamente, PFOR-Delta, Rice coding y PFor-Delta nuevamente (a prueba, si no Rice coding).
+\item Contiene 128 posteos almacenados como: 128 docIDs (almacenados como \textit{d-gaps}), luego 128 frecuencias relativas correspondientes y al final 128 listas de ocurrencias (guardadas como \textit{gaps} para cada docID). Los métodos de compresión serán, respectivamente, PFOR-Delta, Rice coding y PFOR-Delta nuevamente (a prueba, si no Rice coding).
 
 \item Es una unidad básica para descomprimir datos en el índice invertido. Cada uno se puede descomprimir muy rápidamente.
 
