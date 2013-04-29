@@ -132,7 +132,9 @@ Dado un listado de $n$ enteros, FOR determina el marco de referencia y codifica 
 (\noindent \citeauthor{Zukowski:2006}, \citeyear{Zukowski:2006})
 \\
 
-El segundo elegido. PFOR es una sencilla modificación al método FOR, con la cual se atenúa el problema de los valores atípicos mencionado anteriormente (aquí denominados \textit{excepciones}). Su idea proviene del principio de Pareto, o regla de 80-20 (\textit{<< el 80 \% de las consecuencias provienen del 20 \% de las causas>>}).
+El segundo elegido. PFOR es una sencilla modificación al método FOR, con la cual se atenúa el problema de los valores atípicos mencionado anteriormente (aquí denominados \textit{excepciones}). 
+
+%Su idea proviene del principio de Pareto, o regla de 80-20 (\textit{<< el 80 \% de las consecuencias provienen del 20 \% de las causas>>}).
 
 Primero se determina el valor $b$ para el cual la mayoría (digamos, el 80-90 \%) de la lista de enteros a comprimir son menores a $2^b$. Entonces el listado comprimido se guarda en 2 partes: en la primera entran todos los enteros menores a $2^b$ en $b$ bits cada uno, y en la segunda se guardan las \textit{excepciones}, con 8, 16 o 32 bits cada una, dependiendo la excepción más grande.
 
