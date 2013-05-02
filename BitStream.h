@@ -1,0 +1,23 @@
+/*
+ * BitStream.h
+ *
+ *  Created on: May 1, 2013
+ *      Author: guidi
+ */
+
+#ifndef BITSTREAM_H_
+#define BITSTREAM_H_
+
+class BitStream {
+public:
+	BitStream();
+	void appendBit(tBit bit);
+	tBit popBit();
+
+	void flush(void*& array, unsigned int& size);
+	//End of stream
+	bool eos();
+};
+
+
+#endif /* BITSTREAM_H_ */

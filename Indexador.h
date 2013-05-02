@@ -6,23 +6,31 @@
 #include "Merger.h"
 #include <iostream>
 
-class Indexador {
-public:
-	Indexador(std::string repo, std::string dir);
-	void indexar();
+namespace Indexador {
+	class Creador {
+	public:
+		Creador(std::string repo, std::string dir);
+		void indexar();
 
-private:
-	void correrEtapa1();
-	void correrEtapa2();
-	void crearArchivoTemporal(Diccionario* dic);
-	void escribirAArchivoFinal(Diccionario* dic);
-	unsigned int calculaTamanioEnCodigo(Diccionario* dic);
+	private:
+		void correrEtapa1();
+		void correrEtapa2();
 
-private:
-	std::string repo;
-	std::string dir;  // dir del repo
-	std::string outdir;  // dir de archivos tmp
+	private:
+		std::string repo;
+		std::string dir;  // dir del repo
+		std::string outdir;  // dir de archivos tmp
+	};
 
-};
+	class Buscador {
+	public:
+		Buscador(std::string repo, std::string dir);
+		void buscar(std::string consulta);
+	private:
+		void armarTabla();
+		void ordenarPorFreqs(lista);
+		TablaIndice tabla;
+	};
+}
 
 #endif 
