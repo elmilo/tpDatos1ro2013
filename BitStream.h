@@ -11,9 +11,11 @@
 class BitStream {
 public:
 	BitStream();
-	void appendBit(tBit bit);
-	tBit popBit();
+	void escribirBit(tBit bit);
+	void escribirString(std::string cadena);
+	tBit leerBit();
 
+	//Saca a memoria
 	void flush(void*& array, unsigned int& size);
 	//End of stream
 	bool eos();

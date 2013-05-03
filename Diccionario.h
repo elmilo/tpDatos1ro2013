@@ -17,18 +17,16 @@ private:
 
 public:
 
-	Diccionario(std::string repo, std::string dir);
-
 	Diccionario();
-
+	Diccionario();
 	/**
 	 * Trata de insertar una palabra si corresponde, si no actualiza la lista
 	 * */
-	void agregar(string unToken, unsigned unaPosicion, unsigned unDocID);
-
+	void agregar(string unToken, tPos unaPosicion, unsigned unDocID);
 	void agregar(Termino unTermino);
-
 	unsigned memoriaOcupada();
+
+
 
 };
 
