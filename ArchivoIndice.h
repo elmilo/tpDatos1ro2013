@@ -20,8 +20,10 @@ namespace ArchivoIndice {
 		ArchivoOffset::Escritor escritorOffset;
 	};
 	class Lector {
+	public:
 		Lector(std::string rutaIndice, std::string rutaOffset);
-		void leer(tOffset offset);
+		Termino* leerBloque(tOffset offset);
+		Termino* leerFragmentos(tOffset offset, IteradorDocumentos documentos);
 	};
 }
 
@@ -30,5 +32,6 @@ void ArchivoIndice::Escritor::escribir(Diccionario* diccionario) {
 
 	escritorOffset.escribir(getPos());
 }
+
 
 #endif /* ARCHIVOINDICE_H_ */

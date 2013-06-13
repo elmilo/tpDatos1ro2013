@@ -13,7 +13,7 @@ typedef std::list<Documento*>::const_iterator IteradorDocumentos;
 class Termino {
 
 	std::string token;
-	ConjuntoDocumentos documentos;
+	ConjuntoDocumentos* documentos;
 
 	IteradorDocumentos buscarDocumento(unsigned unDocID);
 
@@ -22,6 +22,14 @@ public:
 	Termino(std::string unTermino);
 
 	void agregarPosicion(unsigned unaPosicion, unsigned unDocID);
+
+	IteradorDocumentos iteradorDocs();
+
+	//Solo conserva aquellos docs iguales y posiciones que se encuentren en distancia especificada
+	//pos() - otroTermino.pos() == distancia
+	void intersectar(Termino* otroTermino, tPos distancia);
+
+	void listarPosiciones();
 
 	std::string getTermino();
 

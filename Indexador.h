@@ -27,8 +27,6 @@ namespace Indexador {
 		Buscador(std::string repo, std::string dir);
 		void buscar(std::string consulta);
 	private:
-		void armarTabla();
-		void ordenarPorFreqs(lista);
 		TablaIndice tabla;
 	};
 }

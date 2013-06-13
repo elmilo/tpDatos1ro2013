@@ -4,6 +4,7 @@
 #include "ArchivoDic.h"
 #include "ArchivoIndice.h"
 #include "Normalizador.h"
+#include "TablaIndice.h"
 
 void Indexador::Creador::correrEtapa1() {
 	Parser parser(dir);
@@ -39,33 +40,21 @@ void Indexador::Creador::correrEtapa2() {
 }
 
 void Indexador::Buscador::buscar(std::string consulta) {
-	armarTabla();
-	std::list<std::string>* terminos = Normalizador::normalizarConsulta(consulta);
-	//Ordenar lista de acuerdo a frecuencias globales
-	std::list<tOffset>offsets = tabla.buscar(lista);
-	ordenarPorFreq(lista);
-	//TODO: Escribir logica de mergeo de consultas
+	std::list<tTermino>* terminos = Normalizador::normalizarConsulta(consulta);
+	tOffset offset = tabla.menor(terminos);
+
+	/*TODO: crear una estructura que guarde las posiciones iniciales de cada string
+	 * para despues poder intersectar las listas de docs de cada término
+	*/
+	ArchivoIndice::Lector lector;
+	Termino* termino = lector.leerBloque(offset);
+	while (offset = lista.siguiente()) {
+		Termino* otroTermino = lector.leerFragmentos(offset, termino->iteradorDocs());
+		tPos distancia = termino->posInicial() - otroTermino->posInicial();
+		termino->intersectar(otroTermino, distancia);
+	}
+	termino->listarPosiciones();
 }
 
-void Indexador::Buscador::armarTabla() {
-	ArchivoDic::Lector lectorDic;
-	ArchivoFreqs::Lector lectorFreqs;
-	ArchivoOffset::Lector lectorOffset;
-	while (!lectorDic.eof()) {
-		std::string termino = lectorDic.leer();
-		tabla.pushearTermino(termino);
-	}
-	while (!lectorFreqs.eof()) {
-		tFreq freq = lectorFreqs.leer();
-		tabla.pushearFreq(freq);
-	}
-	while (!lectorOffset.eof()) {
-		tOffset offset = lectorOffset.leer();
-		tabla.pushearOffset(offset);
-	}
-	std:: cout << "En la tabla se insertaron: " << std::endl
-			<< tabla.sizeTerminos() << " terminos." << std::endl
-			<< tabla.sizeFreqs() << " frecuencias." << std::endl
-			<< tabla.sizeOffsets() << " offsets." << std::endl;
-}
+
 
