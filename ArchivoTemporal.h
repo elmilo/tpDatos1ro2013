@@ -10,12 +10,16 @@
 
 #include "Termino.h"
 
+#include "ArchivoGenerico.h"
+
 namespace ArchivoTemporal {
 	class Lector {
 	public:
 		Lector(std::string archivo);
-		Termino leer();
+		Termino leerTermino();
 		bool eof();
+	private:
+		ArchivoGenerico::Lector archivo;
 	};
 
 	class Escritor {
@@ -24,6 +28,7 @@ namespace ArchivoTemporal {
 		void crearTemporal(Diccionario* diccionario);
 	private:
 		void escribirTermino(Termino termino);
+		ArchivoGenerico::Escritor archivo;
 	};
 }
 

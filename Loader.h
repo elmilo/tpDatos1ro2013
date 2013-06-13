@@ -63,7 +63,7 @@ public:
 	/**
 	 * Obtener un documento
 	 * */
-	string getDocumento();
+	string popDocumento();
 
 	unsigned getPosicion();
 };

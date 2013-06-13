@@ -7,6 +7,7 @@
 class Merger {
 public:
 	Merger(std::string outdir);
+	void mergearArchivos();
 	Termino nextTermino();
 	bool end();
 private:

@@ -21,6 +21,8 @@ public:
 
 	unsigned getFrecuencia();
 
+	ConjuntoOcurrencias getOcurrencias();
+
 	unsigned getDocID();
 
 };

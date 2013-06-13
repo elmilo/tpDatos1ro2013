@@ -23,6 +23,7 @@ void Indexador::Creador::correrEtapa1() {
 void Indexador::Creador::correrEtapa2() {
 	Diccionario* diccionario;
 	Merger merger(OUTDIR);
+	merger.mergearArchivos();
 	ArchivoDic::Escritor escritorDic;
 	ArchivoFreqs::Escritor escritorFreqs;
 	ArchivoIndice::Escritor escritorIndice(rutaIndice, rutaOffsets);

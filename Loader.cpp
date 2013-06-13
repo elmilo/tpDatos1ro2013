@@ -110,7 +110,7 @@ bool Loader::estaVacio() {
 
 /***********************************************************************************/
 /***********************************************************************************/
-string Loader::getDocumento() {
+string Loader::popDocumento() {
 	string Archivo = direcciones.front();
 
 	direcciones.pop_front();

@@ -25,7 +25,7 @@ return documentos.end();
 
 /*************************************************************************************/
 /*************************************************************************************/
-void Termino::agregarPosicion (unsigned unaPosicion, unsigned unDocID){
+void Termino::agregarPosicion (tPos unaPosicion, tDocId unDocID){
 
 IteradorDocumentos elemento = buscarDocumento (unDocID);
 Documento* desref = *elemento;

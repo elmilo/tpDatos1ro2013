@@ -12,7 +12,7 @@ void Documento::agregarOcurrencia(unsigned unaPosicion){
 
 /*************************************************************************************/
 /*************************************************************************************/
-unsigned Documento::getFrecuencia(){
+tFreq Documento::getFrecuencia(){
     return ocurrencias.size();
     }
 

@@ -25,6 +25,8 @@ public:
 
 	std::string getTermino();
 
+	ConjuntoDocumentos* getDocumentos();
+
 	bool operator==(Termino &rhs);
 
 	bool operator!=(Termino &rhs);

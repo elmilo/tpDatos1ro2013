@@ -14,6 +14,9 @@ namespace ArchivoGenerico {
 		Escritor();
 		~Escritor();
 		void escribir(BitStream* bitStream);
+		void escribir(size_t integer);
+		void escribir(std::string string);
+		void escribir(std::list<unsigned int> intergers);
 		int abrir(std::string ruta);
 		int cerrar();
 	private:
@@ -26,7 +29,9 @@ namespace ArchivoGenerico {
 		Lector();
 		~Lector();
 		BitStream* leer(unsigned int size);
-
+		size_t leerSize();
+		std::string leerString(size_t size);
+		unsigned int leerUnsigned();
 		bool eof();
 		int abrir(std::string ruta);
 		int cerrar();
