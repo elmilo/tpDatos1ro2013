@@ -36,9 +36,14 @@ bool Loader::filtroExtensiones(string nombreArchivo, string extension) {
 
 /***********************************************************************************/
 /***********************************************************************************/
-void Loader::insertar(string archivoPorAgregar, string extension) {
-	if (filtroExtensiones(archivoPorAgregar, extension))
-		direcciones.push_back(archivoPorAgregar);
+void Loader::insertar(string nombreArchivoPorAgregar, string extension, long tamanio) {
+	if (filtroExtensiones(nombreArchivoPorAgregar, extension)){
+        datosArchivos addendum;
+        
+        addendum.nombreArchivo = nombreArchivoPorAgregar;
+        addendum.tamanioArchivo = tamanio;
+        
+		direcciones.push_back(addendum);}
 }
 
 /***********************************************************************************/
@@ -68,8 +73,8 @@ void Loader::listarArchivos(const char* unDirectorio, string extension = "") {
 					rutaDelArchivo = raiz + SEPARADOR_DIR + archivo;
 					rutaDelArchivo = sacarRaizPpal(rutaDelArchivo);
 				}
-
-				insertar(rutaDelArchivo, extension);
+                
+				insertar(rutaDelArchivo, extension, obtenerTamanioArchivo( raizPpalStr + SEPARADOR_DIR + rutaDelArchivo) );
 
 			} else if (stopper == 0) {
 				/* Se hace llamada recursiva por ser directorio
@@ -97,7 +102,10 @@ Loader::Loader(string directorio, string extension = "") {
 	laPosicion = 0;
 
 	listarArchivos(raizPpal, extension); //llamadas
-	//std::sort(direcciones.begin(), direcciones.end()); //ordena
+    //
+    //ORDENAR
+    //
+	//std::sort(direcciones.begin(), direcciones.end()); 
 	direcciones.sort();
 }
 ;
@@ -111,9 +119,15 @@ bool Loader::estaVacio() {
 /***********************************************************************************/
 /***********************************************************************************/
 string Loader::popDocumento() {
-	string Archivo = direcciones.front();
-
-	direcciones.pop_front();
+	datosArchivos unArchivo = direcciones.front(); //Pide el frente
+    
+    
+    string Archivo = unArchivo.nombreArchivo;
+    /*long tama = unArchivo.tamanioArchivo;
+    std::cout << tama << std::endl;*/
+    
+    
+	direcciones.pop_front(); //Borra el frente
 
 	return raizPpalStr + SEPARADOR_DIR + Archivo;
 }
@@ -127,3 +141,11 @@ unsigned Loader::getPosicion() {
 	return devuelve;
 }
 ;
+
+/***********************************************************************************/
+/***********************************************************************************/
+long Loader::obtenerTamanioArchivo(std::string direccionArchivo){
+	    struct stat stat_buf;
+	    int rc = stat(direccionArchivo.c_str(), &stat_buf);
+	    return rc == 0 ? stat_buf.st_size : -1;
+	}
