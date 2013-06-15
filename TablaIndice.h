@@ -1,9 +1,3 @@
-/*
- * TablaIndice.h
- *
- *  Created on: May 1, 2013
- *      Author: guidi
- */
 
 #ifndef TABLAINDICE_H_
 #define TABLAINDICE_H_

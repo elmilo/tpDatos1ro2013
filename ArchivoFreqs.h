@@ -1,9 +1,3 @@
-/*
- * ArchivoFreqs.h
- *
- *  Created on: Apr 30, 2013
- *      Author: guidi
- */
 
 #ifndef ARCHIVOFREQS_H_
 #define ARCHIVOFREQS_H_

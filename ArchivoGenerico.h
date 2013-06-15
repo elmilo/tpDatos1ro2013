@@ -1,10 +1,3 @@
-/*
- * ArchivoGenerico.h
- *
- *  Created on: May 1, 2013
- *      Author: guidi
- */
-
 #ifndef ARCHIVOGENERICO_H_
 #define ARCHIVOGENERICO_H_
 

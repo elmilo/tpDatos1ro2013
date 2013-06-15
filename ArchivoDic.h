@@ -1,9 +1,3 @@
-/*
- * ArchivoDic.h
- *
- *  Created on: Apr 30, 2013
- *      Author: guidi
- */
 
 #ifndef ARCHIVODIC_H_
 #define ARCHIVODIC_H_

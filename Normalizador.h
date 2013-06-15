@@ -1,10 +1,3 @@
-/*
- * Normalizador.h
- *
- *  Created on: May 1, 2013
- *      Author: guidi
- */
-
 #ifndef NORMALIZADOR_H_
 #define NORMALIZADOR_H_
 

@@ -1,9 +1,3 @@
-/*
- * PforCoding.h
- *
- *  Created on: May 3, 2013
- *      Author: guido
- */
 
 #ifndef PFORCODING_H_
 #define PFORCODING_H_

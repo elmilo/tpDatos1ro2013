@@ -1,9 +1,3 @@
-/*
- * ArchivoIndice.h
- *
- *  Created on: May 1, 2013
- *      Author: guidi
- */
 
 #ifndef ARCHIVOINDICE_H_
 #define ARCHIVOINDICE_H_

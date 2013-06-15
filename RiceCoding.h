@@ -1,9 +1,3 @@
-/*
- * RiceCoding.h
- *
- *  Created on: May 2, 2013
- *      Author: guido
- */
 
 #ifndef RICECODING_H_
 #define RICECODING_H_
