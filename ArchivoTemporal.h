@@ -8,8 +8,7 @@
 #ifndef TEMPORAL_H_
 #define TEMPORAL_H_
 
-#include "Termino.h"
-
+#include "Diccionario.h"
 #include "ArchivoGenerico.h"
 
 namespace ArchivoTemporal {
@@ -30,12 +29,6 @@ namespace ArchivoTemporal {
 		void escribirTermino(Termino termino);
 		ArchivoGenerico::Escritor archivo;
 	};
-}
-
-void ArchivoTemporal::Escritor::crearTemporal(Diccionario* diccionario) {
-	Termino t;
-	//Itera en el diccionario y para cada termino obtenido
-	escribirTermino(t);
 }
 
 #endif /* TEMPORAL_H_ */

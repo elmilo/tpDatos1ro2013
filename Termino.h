@@ -4,11 +4,18 @@
 #include "common.h"
 #include "Documento.h"
 
-//class Documento;
+class ComparadorDeDocumentos {
+  bool operator() (const Documento* lhs, const Documento* rhs) const {
+	  return lhs->getDocID() < rhs->getDocID();
+  }
+};
 
-typedef std::list<Documento*> ConjuntoDocumentos;
+// se elige 'set' porque no inserta duplicados y aparte se ordena automáticamente
+// se utiliza ComparadorDeDocumentos para comparar en el set
+typedef std::set<Documento*,ComparadorDeDocumentos> ConjuntoDocumentos;
 typedef ConjuntoDocumentos::const_iterator IteradorDocumentos;
-typedef std::list<tDocId> ListaDeDocIds;
+
+typedef std::vector<tDocId> ListaDeDocIds;
 
 class Termino {
 
@@ -21,12 +28,9 @@ public:
 	Termino(const Termino& otroTermino);
 	~Termino();
 
-	//
-	void mezclarCon(const Termino& otroTermino);
-
 	void agregarPosicion(tPos unaPosicion, tDocId unDocID);
 
-	IteradorDocumentos iteradorDocs();  // ¿¿Para que se usa esto??
+	//IteradorDocumentos iteradorDocs();  // ¿¿Para que se usa esto??
 
 	//Solo conserva aquellos docs iguales y posiciones que se encuentren a la distancia especificada
 	//otroTermino.pos() - pos() == distancia
@@ -34,7 +38,7 @@ public:
 	//http://www.youtube.com/watch?v=oM1dVZWRwmA   minuto: 14:03
 	ListaDeDocIds intersectar(Termino* otroTermino, tPos distancia);
 
-	void listarPosiciones();  // ¿¿Para que se usa esto??
+	ConjuntoOcurrencias* listarPosiciones(tDocId unDocID);
 
 	tTermino getToken() const;
 
@@ -46,7 +50,7 @@ public:
 
 private:
 
-	IteradorDocumentos buscarDocumento(tDocId unDocID);
+	IteradorDocumentos buscarDocumento(tDocId unDocID) ;
 
 	// Desacoplo la segunda parte del algoritmo de interseccion.
 	// unDoc y otroDoc tienen igual docId

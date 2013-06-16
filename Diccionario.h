@@ -4,32 +4,34 @@
 #include "common.h"
 #include "Termino.h"
 
-typedef set<Termino*>::const_iterator IteradorDiccionario;
+// Se elige 'map' porque permite identificar el termino por su token ahorrando
+// tiempo de búsqueda.
+// Además, se elige 'map' porque no inserta duplicados y aparte ordena alfabéticamente.
+typedef std::map<tTermino,Termino*> ConjuntoTerminos;
+typedef ConjuntoTerminos::const_iterator IteradorTerminos;
 
 class Diccionario {
 
-	typedef set<Termino*> ConjuntoTerminos;
 	ConjuntoTerminos diccionario;
-
-private:
-
-	bool buscarTermino(std::string unToken);
 
 public:
 
 	Diccionario();
+	~Diccionario();
 
-	IteradorDiccionario iterator();
+	// realiza una copia del termino pasado y lo agrega o actualiza si ya existe
+	void agregar(const Termino& unTermino);
+	// lo crea si no existe. Sinó solo agrega la posicion y el docID
+	void agregar(tTermino unToken, tPos unaPosicion, tDocId unDocID);
 
-	Termino* end();
-	/**
-	 * Trata de insertar una palabra si corresponde, si no actualiza la lista
-	 * */
-	void agregar(string unToken, tPos unaPosicion, unsigned unDocID);
-	void agregar(Termino unTermino);
+	// retorna el iterador apuntando al primer elemento del map
+	ConjuntoTerminos* getTerminos();
+
 	unsigned memoriaOcupada();
 
+private:
 
+	bool existeTermino(tTermino unToken);
 
 };
 

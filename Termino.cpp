@@ -10,14 +10,15 @@ Termino::Termino(const Termino& otroTermino) {
 	token = otroTermino.token;
 	IteradorDocumentos it = otroTermino.documentos.begin();
 	while (it != otroTermino.documentos.end()) {
-		documentos.push_back(new Documento(**it));
+		documentos.insert(new Documento(**it));
 	}
 }
 
 Termino::~Termino() {
-	while (!documentos.empty()) {
-		delete documentos.back();
-		documentos.pop_back();
+	IteradorDocumentos it_set = documentos.begin();
+	while(it_set != documentos.end()) {
+		delete *it_set;
+		it_set++;
 	}
 }
 
@@ -47,14 +48,10 @@ void Termino::agregarPosicion (tPos unaPosicion, tDocId unDocID) {
 
 	if (elemento == documentos.end()) {  // el docId no esta en la lista
 		desref = new Documento(unDocID);
-		documentos.push_back(desref);
+		documentos.insert(desref);
 	}
 
 	desref->agregarOcurrencia(unaPosicion);
-}
-
-void Termino::mezclarCon (const Termino& otroTermino) {
-
 }
 
 ListaDeDocIds Termino::intersectar(Termino* otroTermino, tPos distancia) {
@@ -98,6 +95,10 @@ bool Termino::seIntersectan(Documento* doc, Documento* otroDoc, tPos distancia) 
 	}
 
 	return false;
+}
+
+ConjuntoOcurrencias* Termino::listarPosiciones(tDocId unDocID) {
+	return ((Documento*) *buscarDocumento(unDocID))->getOcurrencias();
 }
 
 tTermino Termino::getToken() const {

@@ -8,14 +8,14 @@ Documento::Documento(const Documento& otroDoc) {
 	docID = otroDoc.docID;
 	ConjuntoOcurrencias::const_iterator it = otroDoc.ocurrencias.begin();
 	while (it != otroDoc.ocurrencias.end()) {
-		ocurrencias.push_back(*it);
+		ocurrencias.insert(*it);
 	}
 }
 
 /*************************************************************************************/
 /*************************************************************************************/
 void Documento::agregarOcurrencia(tPos unaPosicion) {
-	ocurrencias.push_back(unaPosicion);
+	ocurrencias.insert(unaPosicion);
 }
 
 /*************************************************************************************/
@@ -30,6 +30,6 @@ ConjuntoOcurrencias* Documento::getOcurrencias() {
 	return &ocurrencias;
 }
 
-tDocId Documento::getDocID() {
+tDocId Documento::getDocID() const {
 	return docID;
 }

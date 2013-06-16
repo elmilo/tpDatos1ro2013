@@ -3,7 +3,8 @@
 
 #include "common.h"
 
-typedef std::list<tPos> ConjuntoOcurrencias;
+// se elige 'set' porque no inserta duplicados y aparte se ordena automáticamente
+typedef std::set<tPos> ConjuntoOcurrencias;
 
 class Documento {
 private:
@@ -22,7 +23,7 @@ public:
 
 	ConjuntoOcurrencias* getOcurrencias();
 
-	tDocId getDocID();
+	tDocId getDocID() const;
 
 };
 

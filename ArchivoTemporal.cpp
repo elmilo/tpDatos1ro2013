@@ -5,22 +5,32 @@
  *      Author: guidi
  */
 
-#include "Documento.h"
+#include "ArchivoTemporal.h"
 
-#include "ArchivoGenerico.h"
-
-void ArchivoTemporal::Escritor::crearTemporal(Diccionario* diccionario) {
-
+void ArchivoTemporal::Escritor::crearTemporal (Diccionario* diccionario) {
+	IteradorTerminos it_dic = diccionario->getTerminos()->begin();
+	while(it_dic != diccionario->getTerminos()->end()) {
+		escribirTermino(*(*it_dic).second); // itera en el diccionario y escribe cada termino
+		it_dic++;
+	}
 }
 
-void ArchivoTemporal::Escritor::escribirTermino(Termino termino) {
+void ArchivoTemporal::Escritor::escribirTermino (Termino termino) {
 	archivo.escribirSize(termino.getTermino().size());
 	archivo.escribirString(termino.getTermino());
-	archivo.escribirUnsigned(termino.getDocumentos()->front()->getDocID());
-	archivo.escribirUnsigned(termino.getDocumentos()->front()->getFrecuencia());
-	list<unsigned>::iterator it = termino.getDocumentos()->front()->getOcurrencias().begin();
-	for ( ; it != termino.getDocumentos()->front()->getOcurrencias().end(); it++)
-		archivo.escribirUnsigned((*it));
+
+	IteradorDocumentos it = termino.getDocumentos()->begin();
+	while(it != termino.getDocumentos()->end()) {
+		archivo.escribirUnsigned((*it)->getDocID());
+		archivo.escribirUnsigned((*it)->getFrecuencia());
+
+		std::list<tPos>::const_iterator it_ocu = (*it)->getOcurrencias()->begin();
+		while(it_ocu != (*it)->getOcurrencias()->end()) {
+			archivo.escribirUnsigned(*it_ocu);
+			it_ocu++;
+		}
+		it++;
+	}
 }
 
 Termino ArchivoTemporal::Lector::leerTermino() {
