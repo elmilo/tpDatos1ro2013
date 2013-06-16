@@ -26,7 +26,7 @@ namespace ArchivoTemporal {
 		Escritor(std::string directorio);
 		void crearTemporal(Diccionario* diccionario);
 	private:
-		void escribirTermino(Termino termino);
+		void escribirTermino(const Termino& termino);
 		ArchivoGenerico::Escritor archivo;
 	};
 }

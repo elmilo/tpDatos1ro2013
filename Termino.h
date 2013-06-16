@@ -42,7 +42,7 @@ public:
 
 	tTermino getToken() const;
 
-	ConjuntoDocumentos* getDocumentos();
+	ConjuntoDocumentos* getDocumentos() const;
 
 	bool operator==(const Termino &rhs) const;
 

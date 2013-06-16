@@ -15,9 +15,9 @@ void ArchivoTemporal::Escritor::crearTemporal (Diccionario* diccionario) {
 	}
 }
 
-void ArchivoTemporal::Escritor::escribirTermino (Termino termino) {
-	archivo.escribirSize(termino.getTermino().size());
-	archivo.escribirString(termino.getTermino());
+void ArchivoTemporal::Escritor::escribirTermino (const Termino& termino) {
+	archivo.escribirSize(termino.getToken().size());
+	archivo.escribirString(termino.getToken());
 
 	IteradorDocumentos it = termino.getDocumentos()->begin();
 	while(it != termino.getDocumentos()->end()) {
@@ -43,4 +43,5 @@ Termino ArchivoTemporal::Lector::leerTermino() {
 		tPos pos = archivo.leerUnsigned();
 		termino.agregarPosicion(pos, docId);
 	}
+	return termino;
 }

@@ -105,7 +105,7 @@ tTermino Termino::getToken() const {
 	return token;
 }
 
-ConjuntoDocumentos* Termino::getDocumentos() {
+ConjuntoDocumentos* Termino::getDocumentos() const {
 	return &documentos;
 }
 
