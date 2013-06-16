@@ -3,8 +3,12 @@
 #define RICECODING_H_
 
 namespace Rice {
-	class Compresor;
-	class Descompresor;
+	BitStream codificar(unsigned int integer);
+	class Decodificador {
+		void appendBit();
+		bool codigoDescifrado();
+		unsigned int decodificar(BitStream stream);
+	};
 }
 
 

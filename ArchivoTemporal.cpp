@@ -14,11 +14,13 @@ void ArchivoTemporal::Escritor::crearTemporal(Diccionario* diccionario) {
 }
 
 void ArchivoTemporal::Escritor::escribirTermino(Termino termino) {
-	archivo.escribir(termino.getTermino().size());
-	archivo.escribir(termino.getTermino());
-	archivo.escribir(termino.getDocumentos()->front()->getDocID());
-	archivo.escribir(termino.getDocumentos()->front()->getFrecuencia());
-	archivo.escribir(termino.getDocumentos()->front()->getOcurrencias());
+	archivo.escribirSize(termino.getTermino().size());
+	archivo.escribirString(termino.getTermino());
+	archivo.escribirUnsigned(termino.getDocumentos()->front()->getDocID());
+	archivo.escribirUnsigned(termino.getDocumentos()->front()->getFrecuencia());
+	list<unsigned>::iterator it = termino.getDocumentos()->front()->getOcurrencias().begin();
+	for ( ; it != termino.getDocumentos()->front()->getOcurrencias().end(); it++)
+		archivo.escribirUnsigned((*it));
 }
 
 Termino ArchivoTemporal::Lector::leerTermino() {

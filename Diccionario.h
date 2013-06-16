@@ -4,11 +4,11 @@
 #include "common.h"
 #include "Termino.h"
 
+typedef set<Termino*>::const_iterator IteradorDiccionario;
+
 class Diccionario {
 
 	typedef set<Termino*> ConjuntoTerminos;
-//typedef set<Terminos*>::const_iterator IteradorDiccionario;
-
 	ConjuntoTerminos diccionario;
 
 private:
@@ -18,7 +18,10 @@ private:
 public:
 
 	Diccionario();
-	Diccionario();
+
+	IteradorDiccionario iterator();
+
+	Termino* end();
 	/**
 	 * Trata de insertar una palabra si corresponde, si no actualiza la lista
 	 * */

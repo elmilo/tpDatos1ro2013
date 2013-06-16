@@ -33,12 +33,11 @@ public:
 
 	std::string getTermino();
 
+	tFreq getFrecuenciaAbsoluta();
+
 	ConjuntoDocumentos* getDocumentos();
-
 	bool operator==(Termino &rhs);
-
 	bool operator!=(Termino &rhs);
-
 };
 
 #endif
