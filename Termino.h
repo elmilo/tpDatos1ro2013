@@ -3,41 +3,55 @@
 
 #include "common.h"
 #include "Documento.h"
-#include <list>
 
-class Documento;
+//class Documento;
 
 typedef std::list<Documento*> ConjuntoDocumentos;
-typedef std::list<Documento*>::const_iterator IteradorDocumentos;
+typedef ConjuntoDocumentos::const_iterator IteradorDocumentos;
+typedef std::list<tDocId> ListaDeDocIds;
 
 class Termino {
 
-	std::string token;
-	ConjuntoDocumentos* documentos;
-
-	IteradorDocumentos buscarDocumento(unsigned unDocID);
+	tTermino token; // palabra/texto
+	ConjuntoDocumentos documentos;
 
 public:
 
-	Termino(std::string unTermino);
+	Termino(tTermino unTermino);
+	Termino(const Termino& otroTermino);
+	~Termino();
 
-	void agregarPosicion(unsigned unaPosicion, unsigned unDocID);
+	//
+	void mezclarCon(const Termino& otroTermino);
 
-	IteradorDocumentos iteradorDocs();
+	void agregarPosicion(tPos unaPosicion, tDocId unDocID);
 
-	//Solo conserva aquellos docs iguales y posiciones que se encuentren en distancia especificada
-	//pos() - otroTermino.pos() == distancia
-	void intersectar(Termino* otroTermino, tPos distancia);
+	IteradorDocumentos iteradorDocs();  // ¿¿Para que se usa esto??
 
-	void listarPosiciones();
+	//Solo conserva aquellos docs iguales y posiciones que se encuentren a la distancia especificada
+	//otroTermino.pos() - pos() == distancia
+	//Retorna una lista con los docIDs que cumplen la condicion
+	//http://www.youtube.com/watch?v=oM1dVZWRwmA   minuto: 14:03
+	ListaDeDocIds intersectar(Termino* otroTermino, tPos distancia);
 
-	std::string getTermino();
+	void listarPosiciones();  // ¿¿Para que se usa esto??
 
-	tFreq getFrecuenciaAbsoluta();
+	tTermino getToken() const;
 
 	ConjuntoDocumentos* getDocumentos();
-	bool operator==(Termino &rhs);
-	bool operator!=(Termino &rhs);
+
+	bool operator==(const Termino &rhs) const;
+
+	bool operator!=(const Termino &rhs) const;
+
+private:
+
+	IteradorDocumentos buscarDocumento(tDocId unDocID);
+
+	// Desacoplo la segunda parte del algoritmo de interseccion.
+	// unDoc y otroDoc tienen igual docId
+	bool seIntersectan(Documento* unDoc, Documento* otroDoc, tPos distancia);
+
 };
 
 #endif
