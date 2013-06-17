@@ -18,7 +18,7 @@ namespace ArchivoGenerico {
 
 		/*Rellena con varios 0's, y un 1 final*/
 		void rellenarBits();
-		int abrir(std::string ruta);
+		int abrir(std::string ruta, std::string extension = "")
 		int cerrar();
 
 		/*IMPORTANTE
@@ -39,8 +39,9 @@ namespace ArchivoGenerico {
 		std::string leerString(size_t size);
 		unsigned int leerUnsigned();
 		bool eof();
-		int abrir(std::string ruta);
+		int abrir(std::string ruta, std::string extension = "");
 		int cerrar();
+		void seek(tOffset offset);
 	private:
 		std::ifstream archivo;
 		BitStream stream;

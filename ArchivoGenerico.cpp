@@ -7,6 +7,7 @@
 
 #include "ArchivoGenerico.h"
 #include "BitStream.h"
+#include <cstring>
 
 ArchivoGenerico::Escritor::Escritor() {
 
@@ -48,8 +49,20 @@ void ArchivoGenerico::Escritor::escribirBit(tBit bit) {
 	this->stream.appendBit(bit);
 }
 
-int ArchivoGenerico::Escritor::abrir(std::string ruta) {
-	archivo.open(ruta.c_str(), std::ios::in);
+int ArchivoGenerico::Escritor::abrir(std::string ruta, std::string extension = "") {
+	char* rutaMasExtension = new char[ruta.size() + extension.size() + 1];
+	strcpy(rutaMasExtension, ruta.c_str());
+	strcat(rutaMasExtension, extension.c_str());
+	archivo.open(rutaMasExtension, std::ios::in);
+	delete rutaMasExtension;
+}
+
+int ArchivoGenerico::Lector::abrir(std::string ruta, std::string extension = "") {
+	char* rutaMasExtension = new char[ruta.size() + extension.size() + 1];
+	strcpy(rutaMasExtension, ruta.c_str());
+	strcat(rutaMasExtension, extension.c_str());
+	archivo.open(rutaMasExtension, std::ios::in);
+	delete rutaMasExtension;
 }
 
 int ArchivoGenerico::Escritor::cerrar() {

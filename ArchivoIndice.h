@@ -12,12 +12,15 @@ namespace ArchivoIndice {
 	private:
 		tPos getPos();
 		ArchivoOffset::Escritor escritorOffset;
+		ArchivoGenerico::Escritor escritorIndice;
 	};
 	class Lector {
 	public:
 		Lector(std::string rutaIndice, std::string rutaOffset);
 		Termino* leerBloque(tOffset offset);
 		Termino* leerFragmentos(tOffset offset, IteradorDocumentos documentos);
+	private:
+		ArchivoGenerico::Lector archivo;
 	};
 }
 
