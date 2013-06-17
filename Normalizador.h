@@ -1,10 +1,37 @@
-#ifndef NORMALIZADOR_H_
-#define NORMALIZADOR_H_
+#ifndef NORMALIZADOR_H_INCLUDED
+#define NORMALIZADOR_H_INCLUDED
 
-namespace Normalizador {
-	std::string normalizarTermino(std::string termino);
-	std::list<std::string>* normalizarConsulta(std::string consulta);
-}
+#include <string>
+#include <vector>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include <algorithm>
 
 
-#endif /* NORMALIZADOR_H_ */
+using namespace std;
+
+class Normalizador{
+public:
+
+Normalizador (std::string unaFrase);
+
+unsigned cantidad();
+
+string unTermino (unsigned posicion);
+
+
+private:
+    static const char* delim;
+
+    vector<string> posiciones;
+    void agregarEnContenedor(char *palabra);
+    bool esAlfaNum (string entrada);
+
+};
+
+
+#endif
+
