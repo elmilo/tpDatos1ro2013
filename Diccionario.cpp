@@ -1,5 +1,9 @@
 #include "Diccionario.h"
 
+Diccionario::Diccionario() {
+	memoriaOcupada = sizeof(Diccionario);
+}
+
 Diccionario::~Diccionario() {
 	IteradorTerminos it_map = diccionario.begin();
 	while(it_map != diccionario.end()) {
@@ -16,27 +20,34 @@ bool Diccionario::existeTermino(tTermino unToken) {
 
 /*************************************************************************************/
 void Diccionario::agregar(const Termino& unTermino) {
-	tTermino token = unTermino.getToken();
-	if(!existeTermino(token)) {
-		diccionario[token] = new Termino(unTermino);
-	}
-	else {
+	if(!agregarTerminoSiNoExiste(unTermino.getToken())) {
 		// falta hacer una mezcla con el termino existente
 	}
 }
 
 void Diccionario::agregar(tTermino unToken, tPos unaPosicion, tDocId unDocID) {
-	if(!existeTermino(unToken)) {
-		diccionario[unToken] = new Termino(unToken);
+	agregarTerminoSiNoExiste(unToken);
+	if(((Termino*) diccionario[unToken])->agregarPosicion(unaPosicion, unDocID)) {
+		memoriaOcupada += sizeof(Documento*) + sizeof(Documento);
 	}
-	((Termino*) diccionario[unToken])->agregarPosicion(unaPosicion, unDocID);
+	memoriaOcupada += sizeof(tPos);
 }
+
 /*************************************************************************************/
 
 ConjuntoTerminos* Diccionario::getTerminos() {
 	return &diccionario;
 }
 
-unsigned Diccionario::memoriaOcupada() {
+unsigned Diccionario::getMemoriaOcupada() {
+	return memoriaOcupada;
+}
 
+bool Diccionario::agregarTerminoSiNoExiste(tTermino unToken) {
+	if(!existeTermino(unToken)) {
+		diccionario[unToken] = new Termino(unToken);
+		memoriaOcupada += sizeof(tTermino) + sizeof(Termino*) + sizeof(Termino);
+		return true;
+	}
+	return false;
 }

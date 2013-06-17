@@ -12,6 +12,7 @@ typedef ConjuntoTerminos::const_iterator IteradorTerminos;
 
 class Diccionario {
 
+	unsigned memoriaOcupada;
 	ConjuntoTerminos diccionario;
 
 public:
@@ -20,17 +21,20 @@ public:
 	~Diccionario();
 
 	// realiza una copia del termino pasado y lo agrega o actualiza si ya existe
-	void agregar(const Termino& unTermino);
+	void agregar(const Termino& unTermino);  // INCOMPLETO
 	// lo crea si no existe. Sinó solo agrega la posicion y el docID
 	void agregar(tTermino unToken, tPos unaPosicion, tDocId unDocID);
 
 	ConjuntoTerminos* getTerminos();
 
-	unsigned memoriaOcupada();
+	// tamaño aproximado en memoria del diccionario
+	unsigned getMemoriaOcupada();
 
 private:
 
 	bool existeTermino(tTermino unToken);
+	// retorna true si lo pudo agregar
+	bool agregarTerminoSiNoExiste(tTermino unToken);
 
 };
 

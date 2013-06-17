@@ -41,17 +41,20 @@ IteradorDocumentos Termino::buscarDocumento(tDocId unDocID) {
 
 /*************************************************************************************/
 /*************************************************************************************/
-void Termino::agregarPosicion (tPos unaPosicion, tDocId unDocID) {
+bool Termino::agregarPosicion (tPos unaPosicion, tDocId unDocID) {
 
+	bool nuevoDocCreado = false;
 	IteradorDocumentos elemento = buscarDocumento(unDocID);
 	Documento* desref = *elemento;
 
 	if (elemento == documentos.end()) {  // el docId no esta en la lista
 		desref = new Documento(unDocID);
 		documentos.insert(desref);
+		nuevoDocCreado = true;
 	}
 
 	desref->agregarOcurrencia(unaPosicion);
+	return nuevoDocCreado;
 }
 
 ListaDeDocIds Termino::intersectar(Termino* otroTermino, tPos distancia) {

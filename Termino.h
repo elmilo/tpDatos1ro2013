@@ -28,7 +28,8 @@ public:
 	Termino(const Termino& otroTermino);
 	~Termino();
 
-	void agregarPosicion(tPos unaPosicion, tDocId unDocID);
+	// retorna true si creó un nuevo documento
+	bool agregarPosicion(tPos unaPosicion, tDocId unDocID);
 
 	//IteradorDocumentos iteradorDocs();  // ¿¿Para que se usa esto??
 
