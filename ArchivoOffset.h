@@ -13,12 +13,16 @@ namespace ArchivoOffset {
 	public:
 		Escritor(std::string ruta);
 		void escribir(tPos pos);
+	private:
+		ArchivoGenerico::Escritor archivo;
 	};
 	class Lector {
 	public:
 		Lector(std::string ruta);
 		tOffset leer();
 		bool eof();
+	private:
+		ArchivoGenerico::Lector archivo;
 	};
 }
 

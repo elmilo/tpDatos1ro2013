@@ -29,13 +29,10 @@ void Indexador::Creador::correrEtapa2() {
 	ArchivoFreqs::Escritor escritorFreqs;
 	ArchivoIndice::Escritor escritorIndice(rutaIndice, rutaOffsets);
 	while (!merger.end()) {
-		Termino t = merger.nextTermino();
-		diccionario->agregar(t);
-		if (diccionario->memoriaOcupada() < MAX_DIC_SIZE) {
-			escritorDic.escribir(diccionario);
-			escritorFreqs.escribir(diccionario);
-			escritorIndice.escribir(diccionario);
-		}
+		Termino termino = merger.nextTermino();
+		escritorDic.escribir(termino);
+		escritorFreqs.escribir(termino);
+		escritorIndice.escribir(termino);
 	}
 }
 

@@ -35,6 +35,7 @@ namespace ArchivoGenerico {
 		~Lector();
 		BitStream* leer(unsigned int size);
 		size_t leerSize();
+		tBit leerBit();
 		std::string leerString(size_t size);
 		unsigned int leerUnsigned();
 		bool eof();
