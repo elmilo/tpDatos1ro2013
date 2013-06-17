@@ -12,9 +12,12 @@
 #include "ArchivoGenerico.h"
 
 namespace ArchivoTemporal {
+
+	const std::string EXTENSION = "tmp";
+
 	class Lector {
 	public:
-		Lector(std::string archivo);
+		Lector(std::string ruta);
 		Termino leerTermino();
 		bool eof();
 	private:
@@ -23,7 +26,7 @@ namespace ArchivoTemporal {
 
 	class Escritor {
 	public:
-		Escritor(std::string directorio);
+		Escritor(std::string ruta);
 		void crearTemporal(Diccionario* diccionario);
 	private:
 		void escribirTermino(const Termino& termino);

@@ -13,7 +13,6 @@ Documento::Documento(const Documento& otroDoc) {
 }
 
 /*************************************************************************************/
-/*************************************************************************************/
 void Documento::agregarOcurrencia(tPos unaPosicion) {
 	ocurrencias.insert(unaPosicion);
 }
@@ -32,4 +31,8 @@ ConjuntoOcurrencias* Documento::getOcurrencias() {
 
 tDocId Documento::getDocID() const {
 	return docID;
+}
+
+bool Documento::operator< (const Documento& rhs) const {
+	return this->getDocID() < rhs.getDocID();
 }

@@ -7,6 +7,10 @@
 
 #include "ArchivoTemporal.h"
 
+ArchivoTemporal::Escritor::Escritor(std::string ruta) {
+	archivo.abrir(ruta);
+}
+
 void ArchivoTemporal::Escritor::crearTemporal (Diccionario* diccionario) {
 	IteradorTerminos it_dic = diccionario->getTerminos()->begin();
 	while(it_dic != diccionario->getTerminos()->end()) {
@@ -24,7 +28,7 @@ void ArchivoTemporal::Escritor::escribirTermino (const Termino& termino) {
 		archivo.escribirUnsigned((*it)->getDocID());
 		archivo.escribirUnsigned((*it)->getFrecuencia());
 
-		std::list<tPos>::const_iterator it_ocu = (*it)->getOcurrencias()->begin();
+		ConjuntoOcurrencias::const_iterator it_ocu = (*it)->getOcurrencias()->begin();
 		while(it_ocu != (*it)->getOcurrencias()->end()) {
 			archivo.escribirUnsigned(*it_ocu);
 			it_ocu++;
@@ -33,15 +37,25 @@ void ArchivoTemporal::Escritor::escribirTermino (const Termino& termino) {
 	}
 }
 
+/*************************************************************************************/
+
+ArchivoTemporal::Lector::Lector(std::string ruta) {
+	archivo.abrir(ruta);
+}
+
 Termino ArchivoTemporal::Lector::leerTermino() {
-	Termino termino;
 	size_t stringSize = archivo.leerSize();
-	std::string string = archivo.leerString(stringSize);
+	tTermino token = archivo.leerString(stringSize);
 	tDocId docId = archivo.leerUnsigned();
 	tFreq frecuencia = archivo.leerUnsigned();
-	for (int i = 0; i < frecuencia; i++) {
+	Termino termino(token);
+	for (unsigned i = 0; i < frecuencia; i++) {
 		tPos pos = archivo.leerUnsigned();
 		termino.agregarPosicion(pos, docId);
 	}
 	return termino;
+}
+
+bool ArchivoTemporal::Lector::eof() {
+	return archivo.eof();
 }

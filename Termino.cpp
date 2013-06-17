@@ -105,8 +105,14 @@ tTermino Termino::getToken() const {
 	return token;
 }
 
-ConjuntoDocumentos* Termino::getDocumentos() const {
+const ConjuntoDocumentos* Termino::getDocumentos() const {
 	return &documentos;
+}
+
+/*************************************************************************************/
+/*************************************************************************************/
+bool Termino::operator< (const Termino& rhs) const {
+	return this->getToken().compare(rhs.getToken()) < 0;
 }
 
 /*************************************************************************************/

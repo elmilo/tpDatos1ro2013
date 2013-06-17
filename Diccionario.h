@@ -24,7 +24,6 @@ public:
 	// lo crea si no existe. Sinó solo agrega la posicion y el docID
 	void agregar(tTermino unToken, tPos unaPosicion, tDocId unDocID);
 
-	// retorna el iterador apuntando al primer elemento del map
 	ConjuntoTerminos* getTerminos();
 
 	unsigned memoriaOcupada();

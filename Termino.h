@@ -4,10 +4,10 @@
 #include "common.h"
 #include "Documento.h"
 
-class ComparadorDeDocumentos {
-  bool operator() (const Documento* lhs, const Documento* rhs) const {
-	  return lhs->getDocID() < rhs->getDocID();
-  }
+struct ComparadorDeDocumentos {
+	bool operator() (Documento* const lhs, Documento* const rhs) const {
+		return *lhs < *rhs;
+	}
 };
 
 // se elige 'set' porque no inserta duplicados y aparte se ordena automáticamente
@@ -42,7 +42,9 @@ public:
 
 	tTermino getToken() const;
 
-	ConjuntoDocumentos* getDocumentos() const;
+	const ConjuntoDocumentos* getDocumentos() const;
+
+	bool operator<(const Termino &rhs) const;
 
 	bool operator==(const Termino &rhs) const;
 

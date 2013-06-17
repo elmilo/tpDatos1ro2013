@@ -25,6 +25,8 @@ public:
 
 	tDocId getDocID() const;
 
+	bool operator<(const Documento& rhs) const;
+
 };
 
 #endif
