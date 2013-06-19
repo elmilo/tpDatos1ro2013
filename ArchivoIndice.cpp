@@ -21,6 +21,27 @@ void ArchivoIndice::Escritor::escribir(Diccionario* diccionario) {
 	}
 }
 
+BitStream* ArchivoIndice::Escritor::crearBloque(Termino* termino) {
+
+	IteradorDocumentos it = termino->getDocumentos()->const_iterator;
+	BitStream* bloque = new BitStream();
+	BitStream* fragmentos = new BitStream();
+	for (int index = 0; it != termino->getDocumentos()->end(); it++, index++) {
+		BitStream streamDGaps = pfor.agregar((*it)->getDocID());
+		BitStream streamFrecuencias = stream->appendStream(comprimirFrecuencias(termino));
+		BitStream streamListas = pfor.agregar((*it)->getOcurrencias());
+		if (index == FRAG_SIZE) {
+			fragmento->appendStream(streamDGaps); streamDGaps.vaciar();
+			fragmento->appendStream(streamFrecuencias); streamFrecuencias.vaciar();
+			fragmento->appendStream(streamListas); streamListas.vaciar();
+		}
+	}
+}
+
+BitStream* comprimirFragmento() {
+
+}
+
 ArchivoIndice::Lector::Lector(std::string rutaIndice, std::string rutaOffset);
 
 Termino* ArchivoIndice::Lector::leerBloque(tOffset offset) {
