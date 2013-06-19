@@ -12,8 +12,12 @@
 *.la
 *.a
 
-#Temporales linux
-*.*~
-*~
-*.log
-*.aux
+# Eclipse project's files
+*.project
+*.cproject
+/Debug
+
+=======
+/Debug
+
+
