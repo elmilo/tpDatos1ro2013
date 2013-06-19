@@ -15,9 +15,7 @@ void ArchivoIndice::Escritor::escribir(Diccionario* diccionario) {
 	while(it != diccionario->getTerminos()->end()) {
 		Termino* termino = *it;
 		escritorOffset.escribir(escritorIndice.getPos());
-		BloqueIndice* bloque = new BloqueIndice;
-		bloque->agregarTermino(termino);
-		BitStream stream = bloque->getStream();
+		BitStream* stream = crearBloque(Termino* termino);
 		escritorIndice.escribirStream(stream);
 		delete bloque;
 	}
@@ -26,7 +24,6 @@ void ArchivoIndice::Escritor::escribir(Diccionario* diccionario) {
 ArchivoIndice::Lector::Lector(std::string rutaIndice, std::string rutaOffset);
 
 Termino* ArchivoIndice::Lector::leerBloque(tOffset offset) {
-	archivo.seek(offset);
 	//AHORA SIGO
 }
 

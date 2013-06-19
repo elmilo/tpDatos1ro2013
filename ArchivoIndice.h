@@ -10,6 +10,7 @@ namespace ArchivoIndice {
 		Escritor(std::string rutaIndice, std::string rutaOffset);
 		void escribir(Diccionario* diccionario);
 	private:
+		BitStream* crearBloque(Termino* termino);
 		tPos getPos();
 		ArchivoOffset::Escritor escritorOffset;
 		ArchivoGenerico::Escritor escritorIndice;
