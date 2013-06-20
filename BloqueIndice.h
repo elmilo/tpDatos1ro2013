@@ -8,20 +8,36 @@
 #ifndef BLOQUEINDICE_H_
 #define BLOQUEINDICE_H_
 
-class BloqueIndice {
-public:
-	BloqueIndice(Termino* termino);
-	BloqueIndice(BitStream* bloque);
-	std::list<tOffset>* getOffsetsFragmentos();
-	BitStream* getFragmentos();
-	Termino* getTermino();
-private:
-	void generarStream(Termino* bloque);
-	void generarTermino(BitStream* stream);
-	Termino* termino;
-	std::list<unsigned int> listaOffsets;
-	BitStream* streamFragmentos;
-};
+#include <stdlib.h>
+
+namespace BloqueIndice {
+	class Escritor {
+	public:
+		Escritor(Termino* termino);
+		BitStream* getBloque();
+	private:
+		void generarFragmentos(Termino* bloque);
+		void appendFragmentosA(BitStream* stream);
+		void appendMetadatosA(BitStream* stream);
+		BitStream* bloque;
+		std::list<unsigned int> listaOffsets;
+	};
+
+	class Lector {
+	public:
+		Lector(BitStream* bloque);
+		Termino* getTermino();
+	private:
+		Termino* termino;
+		void generarTermino(BitStream* stream);
+	};
+
+	class BloqueIndice {
+	public:
+		std::list<tOffset>* getOffsetsFragmentos();
+	private:
+	};
+}
 
 
 #endif /* BLOQUEINDICE_H_ */

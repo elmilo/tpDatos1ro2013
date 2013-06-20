@@ -5,34 +5,25 @@
  *      Author: Guido
  */
 
-BloqueIndice::BloqueIndice(Termino* termino) {
+#include "BloqueIndice.h"
+
+BloqueIndice::Escritor::Escritor(Termino* termino) {
 	this->termino = termino;
-	generarStream(termino);
+	generarFragmentos(termino);
 }
 
-BloqueIndice::BloqueIndice(BitStream* bloque) {
-	generarTermino(bloque);
+BitStream* BloqueIndice::Escritor::getBloque() {
+	BitStream* stream = new BitStream();
+	appendMetadatosA(stream);
+	appendFragmentosA(stream);
+	return stream;
 }
 
-std::list<tOffset>* BloqueIndice::getOffsetsFragmentos() {
-	return this->listaOffsets;
-}
-
-BitStream* BloqueIndice::getFragmentos() {
-	return this->streamFragmentos;
-}
-
-Termino* BloqueIndice::getTermino() {
-	return this->termino;
-}
-
-void BloqueIndice::generarStream(Termino* termino) {
-	Pfor::Compresor dgaps, listas;
-	Rice::Codificador frecuencias;
+void BloqueIndice::Escritor::generarFragmentos(Termino* termino) {
 	ConjuntoDocumentos documentos = termino->getDocumentos();
-	IteradorDocumentos it = documentos.const_iterator;
-	unsigned int ultimoTamanio = 0;
-	while(it != documentos.end()) {
+	Fragmentacion::Frag fragmentador(termino->getDocumentos());
+	fragmentador.
+	/*while(it != documentos.end()) {
 		for (int i = 0; i < FRAG_SIZE; i++) dgaps.agregar((*it)->getDocID());
 		streamFragmentos->appendStream(dgaps.flushStream());
 		for (int i = 0; i < FRAG_SIZE; i++) frecuencias.codificar((*it)->getFrecuencia());
@@ -48,14 +39,41 @@ void BloqueIndice::generarStream(Termino* termino) {
 		streamFragmentos->rellenarBits();
 		this->listaOffsets.push_back(streamFragmentos->byteSize() + ultimoTamanio);
 		unsigned int ultimoTamanio = streamFragmentos->byteSize();
+	}*/
+}
+
+void BloqueIndice::Escritor::appendMetadatosA(BitStream* stream) {
+	stream->appendSize(this->listaOffsets.size());
+	std::list<unsigned int>::const_iterator it = listaOffsets.const_iterator;
+	for (; it != listaOffsets.end(); it++) {
+		stream->appendUnsigned((*it));
 	}
 }
 
-void BloqueIndice::generarTermino(BitStream* bloque) {
-	Pfor::Descompresor dgaps, listas;
-	Rice::Decodificador frecuencias;
-	this->termino = new Termino();
-	size_t
+void BloqueIndice::Escritor::appendFragmentosA(BitStream* stream) {
+	stream->appendStream(fragmentador.getStream());
+}
+
+BloqueIndice::Lector::Lector(BitStream* bloque) {
+	generarTermino(bloque);
+}
+
+Termino* BloqueIndice::Lector::getTermino() {
+	return this->termino;
+}
+
+void BloqueIndice::Lector::generarTermino(BitStream* bloque) {
+	size_t cantidadFragmentos = bloque->popSize();
+	size_t tamanioFragmentos = 0;
+	for (int i = 0; i < cantidadFragmentos; i++) {
+		tamanioFragmentos += bloque->popSize();
+	}
+	Fragmentacion::Defrag defragmentador(bloque);
+	this->termino = defragmentador.getTermino();
+}
+
+std::list<tOffset>* BloqueIndice::getOffsetsFragmentos() {
+	return this->listaOffsets;
 }
 
 
