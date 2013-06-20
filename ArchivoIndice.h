@@ -17,7 +17,7 @@ namespace ArchivoIndice {
 	};
 	class Lector {
 	public:
-		Lector(std::string rutaIndice, std::string rutaOffset);
+		Lector(std::string rutaIndice);
 		Termino* leerBloque(tOffset offset);
 		Termino* leerFragmentos(tOffset offset, IteradorDocumentos documentos);
 	private:

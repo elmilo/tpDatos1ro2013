@@ -22,9 +22,10 @@ public:
 	void appendString(std::string string);
 	void appendBit(tBit bit);
 	void appendChar(char caracter);
-
+	void rellenarBits();
 	tBit popBit();
 	char popChar();
+	size_t popSize();
 
 	/* Devuelve un array de bytes de tamaño:
 	 * la cantidad de bits dividido ocho.

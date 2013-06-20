@@ -33,7 +33,7 @@ namespace ArchivoGenerico {
 	public:
 		Lector();
 		~Lector();
-		BitStream* leer(unsigned int size);
+		BitStream* leerStream(unsigned int byteSize);
 		size_t leerSize();
 		tBit leerBit();
 		std::string leerString(size_t size);

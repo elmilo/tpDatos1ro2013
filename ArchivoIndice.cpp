@@ -16,36 +16,39 @@ void ArchivoIndice::Escritor::escribir(Diccionario* diccionario) {
 		Termino* termino = *it;
 		escritorOffset.escribir(escritorIndice.getPos());
 		BitStream* stream = crearBloque(Termino* termino);
+		escritorIndice.escribirSize(stream->byteSize());
 		escritorIndice.escribirStream(stream);
 		delete bloque;
 	}
 }
 
 BitStream* ArchivoIndice::Escritor::crearBloque(Termino* termino) {
-
-	IteradorDocumentos it = termino->getDocumentos()->const_iterator;
-	BitStream* bloque = new BitStream();
-	BitStream* fragmentos = new BitStream();
-	for (int index = 0; it != termino->getDocumentos()->end(); it++, index++) {
-		BitStream streamDGaps = pfor.agregar((*it)->getDocID());
-		BitStream streamFrecuencias = stream->appendStream(comprimirFrecuencias(termino));
-		BitStream streamListas = pfor.agregar((*it)->getOcurrencias());
-		if (index == FRAG_SIZE) {
-			fragmento->appendStream(streamDGaps); streamDGaps.vaciar();
-			fragmento->appendStream(streamFrecuencias); streamFrecuencias.vaciar();
-			fragmento->appendStream(streamListas); streamListas.vaciar();
-		}
+	BitStream* stream = new BitStream();
+	BloqueIndice bloque(termino);
+	std::list<tOffset>* offsetsFragmentos = bloque.getOffsetsFragmentos();
+	stream->appendSize(offsetsFragmentos->size());
+	std::list<tOffset>::const_iterator it = bloque.getOffsetsFragmentos()->const_iterator;
+	for(; it != offsetsFragmentos->end(); it++) {
+		stream->appendUnsigned(*it);
 	}
+	stream->appendStream(bloque.getFragmentos());
+	return stream;
 }
 
-BitStream* comprimirFragmento() {
-
+ArchivoIndice::Lector::Lector(std::string rutaIndice) {
+	archivo.abrir(rutaIndice);
 }
-
-ArchivoIndice::Lector::Lector(std::string rutaIndice, std::string rutaOffset);
 
 Termino* ArchivoIndice::Lector::leerBloque(tOffset offset) {
-	//AHORA SIGO
+	archivo.seek(offset);
+	size_t sizeBloque = archivo.leerSize();
+	BitStream* stream = archivo.leerStream(sizeBloque);
+	BloqueIndice bloque(stream);
+	Termino* termino = bloque.getTermino();
+	return termino;
 }
 
-Termino* ArchivoIndice::Lector::leerFragmentos(tOffset offset, IteradorDocumentos documentos);
+Termino* ArchivoIndice::Lector::leerFragmentos(tOffset offset, IteradorDocumentos documentos) {
+	Termino* termino;
+	return termino;
+}

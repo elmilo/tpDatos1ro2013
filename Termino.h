@@ -23,7 +23,7 @@ class Termino {
 	ConjuntoDocumentos documentos;
 
 public:
-
+	Termino();
 	Termino(tTermino unTermino);
 	Termino(const Termino& otroTermino);
 	~Termino();

@@ -5,6 +5,7 @@
 
 // se elige 'set' porque no inserta duplicados y aparte se ordena automáticamente
 typedef std::set<tPos> ConjuntoOcurrencias;
+typedef std::set<tPos>::const_iterator IteradorOcurrencias;
 
 class Documento {
 private:
