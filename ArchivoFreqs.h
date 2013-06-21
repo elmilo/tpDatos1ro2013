@@ -2,6 +2,8 @@
 #ifndef ARCHIVOFREQS_H_
 #define ARCHIVOFREQS_H_
 
+#include "ArchivoGenerico.h"
+
 namespace ArchivoFreqs {
 	class Escritor {
 	public:

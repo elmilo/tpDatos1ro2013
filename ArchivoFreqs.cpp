@@ -9,9 +9,10 @@
 #include "RiceCoding.h"
 
 void ArchivoFreqs::Escritor::escribir(Diccionario* diccionario) {
-	IteradorDiccionario it = diccionario->iterator();
-	for (; it != diccionario->end(); it++) {
-		BitStream stream = Rice::comprimir((*it)->getFrecuenciaAbsoluta());
+	IteradorTerminos it = diccionario->getTerminos()->const_iterator;
+	for (; it != diccionario->getTerminos()->end(); it++) {
+		Rice::Codificador rice;
+		BitStream* stream = rice.codificar((*it).second->getFrecuenciaAbsoluta());
 		archivo.escribirStream(stream);
 	}
 	archivo.flush();

@@ -7,7 +7,7 @@
 // Se elige 'map' porque permite identificar el termino por su token ahorrando
 // tiempo de búsqueda.
 // Además, se elige 'map' porque no inserta duplicados y aparte ordena alfabéticamente.
-typedef std::map<tTermino,Termino*> ConjuntoTerminos;
+typedef std::map<tToken,Termino*> ConjuntoTerminos;
 typedef ConjuntoTerminos::const_iterator IteradorTerminos;
 
 class Diccionario {
@@ -23,7 +23,7 @@ public:
 	// realiza una copia del termino pasado y lo agrega o actualiza si ya existe
 	void agregar(const Termino& unTermino);  // INCOMPLETO
 	// lo crea si no existe. Sinó solo agrega la posicion y el docID
-	void agregar(tTermino unToken, tPos unaPosicion, tDocId unDocID);
+	void agregar(tToken unToken, tPos unaPosicion, tDocId unDocID);
 
 	ConjuntoTerminos* getTerminos();
 
@@ -32,9 +32,9 @@ public:
 
 private:
 
-	bool existeTermino(tTermino unToken);
+	bool existeTermino(tToken unToken);
 	// retorna true si lo pudo agregar
-	bool agregarTerminoSiNoExiste(tTermino unToken);
+	bool agregarTerminoSiNoExiste(tToken unToken);
 
 };
 

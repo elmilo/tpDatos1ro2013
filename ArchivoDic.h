@@ -2,6 +2,8 @@
 #ifndef ARCHIVODIC_H_
 #define ARCHIVODIC_H_
 
+#include "ArchivoGenerico.h"
+
 namespace ArchivoDic {
 	class Lector {
 	public:

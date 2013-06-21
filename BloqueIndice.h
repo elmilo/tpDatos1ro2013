@@ -9,18 +9,25 @@
 #define BLOQUEINDICE_H_
 
 #include <stdlib.h>
+#include "Fragmento.h"
 
 namespace BloqueIndice {
-	class Escritor {
+	typedef std::list<Fragmento::Fragmento*> ConjuntoFragmentos;
+
+	class Creador {
 	public:
-		Escritor(Termino* termino);
+		Creador(Termino* termino);
 		BitStream* getBloque();
 	private:
 		void generarFragmentos(Termino* bloque);
 		void appendFragmentosA(BitStream* stream);
 		void appendMetadatosA(BitStream* stream);
-		BitStream* bloque;
+		void appendCantidadDocumentos(BitStream* stream);
+		void appendCantidadFragmentos(BitStream* stream);
+		void appendTamaniosFragmentos(BitStream* stream);
+		ConjuntoFragmentos fragmentos;
 		std::list<unsigned int> listaOffsets;
+		tFreq cantidadDocumentos;
 	};
 
 	class Lector {
@@ -29,7 +36,9 @@ namespace BloqueIndice {
 		Termino* getTermino();
 	private:
 		Termino* termino;
-		void generarTermino(BitStream* stream);
+	int i;
+
+	void generarTermino(BitStream* stream);
 	};
 
 	class BloqueIndice {

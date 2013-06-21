@@ -14,6 +14,7 @@ ArchivoGenerico::Escritor::Escritor() {
 }
 
 ArchivoGenerico::Escritor::~Escritor() {
+	flush();
 	archivo.close();
 }
 
@@ -22,7 +23,7 @@ void ArchivoGenerico::Escritor::escribirStream(BitStream* bitStream) {
 }
 
 void ArchivoGenerico::Escritor::escribirUnsigned(unsigned int integer) {
-	this->stream.appendInteger(integer);
+	this->stream.appendUnsigned(integer);
 	/*char* array = 0;
 	ArchivoGenerico::empaquetarUnsigned(array, integer);
 	archivo.write(array, sizeof(unsigned int));

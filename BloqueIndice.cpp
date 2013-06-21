@@ -7,51 +7,59 @@
 
 #include "BloqueIndice.h"
 
-BloqueIndice::Escritor::Escritor(Termino* termino) {
-	this->termino = termino;
+BloqueIndice::Creador::Creador(Termino* termino) {
+	this->cantidadDocumentos = termino->getDocumentos()->size();
 	generarFragmentos(termino);
 }
 
-BitStream* BloqueIndice::Escritor::getBloque() {
+void BloqueIndice::Creador::generarFragmentos(Termino* termino) {
+	ConjuntoDocumentos documentos = termino->getDocumentos();
+	IteradorDocumentos it = documentos.const_iterator;
+	Fragmento::Fragmento* fragmento = 0;
+	while (it != documentos.end()) {
+		fragmento = new Fragmento();
+		for(int i = 0; i < FRAG_SIZE and it != documentos.end(); i++, it++) {
+			fragmento->agregarDocumento((*it));
+		}
+		listaOffsets.push_back(fragmento->streamSize() + 1);
+		fragmentos.push_back(fragmento);
+	}
+}
+
+BitStream* BloqueIndice::Creador::getBloque() {
 	BitStream* stream = new BitStream();
 	appendMetadatosA(stream);
 	appendFragmentosA(stream);
 	return stream;
 }
 
-void BloqueIndice::Escritor::generarFragmentos(Termino* termino) {
-	ConjuntoDocumentos documentos = termino->getDocumentos();
-	Fragmentacion::Frag fragmentador(termino->getDocumentos());
-	fragmentador.
-	/*while(it != documentos.end()) {
-		for (int i = 0; i < FRAG_SIZE; i++) dgaps.agregar((*it)->getDocID());
-		streamFragmentos->appendStream(dgaps.flushStream());
-		for (int i = 0; i < FRAG_SIZE; i++) frecuencias.codificar((*it)->getFrecuencia());
-		streamFragmentos->appendStream(frecuencias.getStream());
-		for (int i = 0; i < FRAG_SIZE; i++) {
-			ConjuntoOcurrencias ocurrencias = termino->listarPosiciones((*it)->getDocID());
-			IteradorOcurrencias itOcurrencias = ocurrencias.const_iterator;
-			for ( ; itOcurrencias != ocurrencias.end(); it++) {
-				listas.agregar((*itOcurrencias));
-			}
-			streamFragmentos->appendStream(listas.flushStream());
-		}
-		streamFragmentos->rellenarBits();
-		this->listaOffsets.push_back(streamFragmentos->byteSize() + ultimoTamanio);
-		unsigned int ultimoTamanio = streamFragmentos->byteSize();
-	}*/
+void BloqueIndice::Creador::appendMetadatosA(BitStream* stream) {
+	appendCantidadDocumentos(stream);
+	appendCantidadFragmentos(stream);
+	appendTamaniosFragmentos(stream);
 }
 
-void BloqueIndice::Escritor::appendMetadatosA(BitStream* stream) {
+void BloqueIndice::Creador::appendCantidadDocumentos(BitStream* stream) {
+	stream->appendUnsigned(this->cantidadDocumentos);
+}
+
+void BloqueIndice::Creador::appendCantidadFragmentos(BitStream* stream) {
 	stream->appendSize(this->listaOffsets.size());
+}
+
+void BloqueIndice::Creador::appendTamaniosFragmentos(BitStream* stream) {
 	std::list<unsigned int>::const_iterator it = listaOffsets.const_iterator;
 	for (; it != listaOffsets.end(); it++) {
 		stream->appendUnsigned((*it));
 	}
 }
 
-void BloqueIndice::Escritor::appendFragmentosA(BitStream* stream) {
-	stream->appendStream(fragmentador.getStream());
+void BloqueIndice::Creador::appendFragmentosA(BitStream* stream) {
+	while(!fragmentos.empty()) {
+		stream->appendStream(fragmentos.front()->getStream());
+		delete fragmentos.front();
+		fragmentos.pop_front();
+	}
 }
 
 BloqueIndice::Lector::Lector(BitStream* bloque) {
@@ -63,17 +71,13 @@ Termino* BloqueIndice::Lector::getTermino() {
 }
 
 void BloqueIndice::Lector::generarTermino(BitStream* bloque) {
+	unsigned int cantidadDocumentos = bloque->popUnsigned();
 	size_t cantidadFragmentos = bloque->popSize();
 	size_t tamanioFragmentos = 0;
-	for (int i = 0; i < cantidadFragmentos; i++) {
+	for (int i = 0; i < cantidadDocumentos; i++) {
 		tamanioFragmentos += bloque->popSize();
 	}
-	Fragmentacion::Defrag defragmentador(bloque);
+	Fragmento::Defragmentador defragmentador(bloque, cantidadDocumentos);
 	this->termino = defragmentador.getTermino();
 }
-
-std::list<tOffset>* BloqueIndice::getOffsetsFragmentos() {
-	return this->listaOffsets;
-}
-
 

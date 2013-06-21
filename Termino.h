@@ -19,12 +19,12 @@ typedef std::vector<tDocId> ListaDeDocIds;
 
 class Termino {
 
-	tTermino token; // palabra/texto
+	tToken token; // palabra/texto
 	ConjuntoDocumentos documentos;
 
 public:
 	Termino();
-	Termino(tTermino unTermino);
+	Termino(tToken unTermino);
 	Termino(const Termino& otroTermino);
 	~Termino();
 
@@ -41,7 +41,9 @@ public:
 
 	ConjuntoOcurrencias* listarPosiciones(tDocId unDocID);
 
-	tTermino getToken() const;
+	tToken getToken() const;
+
+	tFreq getFrecuenciaAbsoluta();
 
 	const ConjuntoDocumentos* getDocumentos() const;
 

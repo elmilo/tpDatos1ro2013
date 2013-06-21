@@ -7,7 +7,7 @@
 class Parser {
 public:
 	Parser(std::string dir);
-	tTermino nextTermino();
+	tToken nextTermino();
 	tDocId getDocIdActual();
 	tPos getPosActual();
 	bool tieneTerminos();
@@ -20,7 +20,7 @@ private:
 	bool terminoArchivo();
 	/*palabraPos Parser::siguienteNodo();
 	palabraPos Parser::unNodo(unsigned int posicion);*/
-	tTermino term;
+	tToken term;
 	tDocId docId;
 	tPos pos;
 };

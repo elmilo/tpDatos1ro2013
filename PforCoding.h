@@ -8,7 +8,9 @@ namespace Pfor {
 		void agregar(unsigned int numero);
 		BitStream* flushStream();
 	};
-	class Descompresor;
+	class Descompresor {
+		void descomprimir(BitStream* stream, unsigned int integers);
+	};
 }
 
 

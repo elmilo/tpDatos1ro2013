@@ -7,7 +7,7 @@ public:
 	TablaIndice();
 	void armar();
 	//Devuelve el offset del termino menor
-	tOffset menor(std::list<tTermino>* terminos);
+	tOffset menor(std::list<tToken>* terminos);
 	unsigned int size();
 private:
 	void pushearTermino(std::string termino);
