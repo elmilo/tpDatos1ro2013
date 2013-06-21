@@ -6,7 +6,9 @@
 #include <fstream>
 #include <iterator>
 #include <vector>
+#include <cmath>
 #include "BitStreamSalida.h"
+#include "BitStreamEntrada.h"
 using namespace std;
 typedef unsigned char byte;
 
@@ -17,24 +19,39 @@ class Lzw
 private:
 
     fstream archEntrada;
-    map<string,int> dictionary;
+    map<string,int> dictionaryC;
+    map<int,string> dictionaryD;
     int dictSize;
     int sizeBuffer;
 
     public:
 
         Lzw();
-        void comprimirLzw(const char* nomArch);
-        void crearDiccionario();
-        string leerBloque(int sizeBuffer);
-        void borrarTabla();
+        void comprimirArchivo(const char* nomArch);
+        void crearDiccionarioCompresion();
+        void crearDiccionarioDescompresion();
+        string leerBloque();
+        void borrarTablaDescompresion();
+        void borrarTablaCompresion();
         string char2bin(byte cData);
         void escribirUnCodigo(int codEnDecimal);
         void escribirBloque(vector<int> vecSalida);
         void comprimirBloque(string bloque);
         bool esUno(char bitChar);
+
         template <typename Iterator>
         Iterator compress(const string &uncompressed, Iterator result);
+
+                template <typename Iterator>
+        string decompress(Iterator begin, Iterator end);
+
+        char convertirEnBit(bool bitBool);
+        byte bin2char(string sSecuencia);
+        int leerUnCodigo();
+        string descomprimirBloque();
+
+
+
         virtual ~Lzw();
 
 };
