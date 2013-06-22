@@ -68,64 +68,6 @@ Iterator  Lzw::compress(const string &uncompressed, Iterator result) {
 }
 
 
-template <typename Iterator>
-string Lzw::decompress(Iterator begin, Iterator end) {
-
-  std::string w(1, *begin++);
-  std::string result = w;
-  std::string entry;
-  for ( ; begin != end; begin++) {
-
-        if (dictSize>512){
-           borrarTablaDescompresion();
-           crearDiccionarioDescompresion();
-           }
-    int k = *begin;
-    if (dictionaryD.count(k))
-      entry = dictionaryD[k];
-    else if (k == dictSize)
-      entry = w + w[0];
-    else
-      throw "Bad compressed k";
-
-    result += entry;
-
-    // Add w+entry[0] to the dictionary.
-    dictionaryD[dictSize++] = w + entry[0];
-
-    w = entry;
-  }
-  return result;
-}
-
-
-
-
-
-
-
-byte Lzw::bin2char(string sSecuencia) {
-
-  if (sSecuencia.size() != 8) return '\0';
-
-  int nLongitud = static_cast<int>(sSecuencia.size());
-  byte nSum = 0;
-  for (int i = 0; i < nLongitud; i++) {
-    unsigned char c = sSecuencia[i];
-    int n = 0;
-    if (c == '0') {
-      n = 0;
-    } else if (c == '1'){
-      n = 1;
-    }
-    nSum += static_cast<unsigned int>(n*pow(2.0, (nLongitud - 1) - i));
-  }
-  byte cOcteto;
-  cOcteto = static_cast<byte>(nSum);
-  return cOcteto;
-}
-
-
 
 
 string Lzw::char2bin(byte cData) {
@@ -185,27 +127,61 @@ if (codEnDecimal<256){
 
 
 
-int Lzw::leerUnCodigo(){
-char bitChar;
-string codBin;
 int codDecimal;
-codBin.clear();
+char bitChar;
+bitset<9> bitSet;
+int i;
 
-   bitChar=convertirEnBit(streamEntrada.leerBit());
-   if(bitChar=='0'){
-    for(int i=0;i<=7;i++){
-        codBin+=convertirEnBit(streamEntrada.leerBit());}
-        codDecimal=bin2char(codBin);
-   }
-   else{
-    for(int i=0;i<=7;i++){
-        codBin+=convertirEnBit(streamEntrada.leerBit());}
-        //se convierten los 8 primeros bits y despues se suma 256 para formar el numero real
-        codDecimal=bin2char(codBin);
-        codDecimal=codDecimal+256;
-   }
+int Lzw::leerUnCodigo(){
 
-return codDecimal;
+    for(i=8;i>=0;i--){
+
+         bitSet.set(i,streamEntrada.leerBit());
+         }
+
+return bitSet.to_ulong();
+}
+
+
+string Lzw::descomprimirBloque(){
+vector<int_fast16_t> buffer;
+
+int codigo=0;
+
+borrarTablaDescompresion();
+crearDiccionarioDescompresion();
+
+  map<int,string>::iterator it;
+  it=dictionaryD.find(256);
+
+ string w(1, leerUnCodigo());
+ string result = w;
+string entry;
+
+
+while(codigo!=255){
+
+codigo=leerUnCodigo();
+
+        if (dictSize>512){
+        dictSize=256;
+  dictionaryD.erase(it,dictionaryD.end());
+           }
+
+    int k = codigo;
+entry = dictionaryD[k];
+
+   result += entry;
+
+    // Add w+entry[0] to the dictionary.
+    dictionaryD[dictSize++] = w + entry[0];
+
+    w = entry;
+  }
+
+
+
+return result;
 }
 
 
@@ -235,22 +211,8 @@ void Lzw::comprimirBloque(string bloque){
   escribirBloque(buffer);
   }
 
-string Lzw::descomprimirBloque(){
-vector<int> buffer;
-
-int codigo=0;
 
 
-while(codigo!=255){
-codigo=leerUnCodigo();
-buffer.push_back(codigo);
-cout<<codigo<<"-";
-
-}
-borrarTablaDescompresion();
-crearDiccionarioDescompresion();
-return decompress(buffer.begin(),buffer.end());
-}
 
 void Lzw::comprimirArchivo(const char* nomArch){
     archEntrada.open(nomArch,ios_base::in|ios::binary);

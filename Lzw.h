@@ -7,6 +7,7 @@
 #include <iterator>
 #include <vector>
 #include <cmath>
+#include <bitset>
 #include "BitStreamSalida.h"
 #include "BitStreamEntrada.h"
 using namespace std;
@@ -42,11 +43,8 @@ private:
         template <typename Iterator>
         Iterator compress(const string &uncompressed, Iterator result);
 
-                template <typename Iterator>
-        string decompress(Iterator begin, Iterator end);
-
         char convertirEnBit(bool bitBool);
-        byte bin2char(string sSecuencia);
+
         int leerUnCodigo();
         string descomprimirBloque();
 
