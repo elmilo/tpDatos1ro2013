@@ -1,0 +1,39 @@
+OBJ = testCompresion.o PforCoding.o RiceCoding.o unpack.o coding.o 
+#NullCoding.o
+CXXFLAGS = -fmessage-length=0 -std=c++11 -Wall
+#CXXFLAGS = -Wall
+#CXXDEBUG = -O0 -g3
+#CXXRELEASE = -O3
+
+release: CXX += $(CXXRELEASE)
+release: testCompresion
+
+coding.o: coding.cpp
+	g++ $(CXXFLAGS) -c coding.cpp
+
+unpack.o: unpack.cpp
+	g++ $(CXXFLAGS) -c unpack.cpp
+
+#NullCoding.o: NullCoding.cpp coding.cpp unpack.cpp
+#	g++ $(CXXFLAGS) -c NullCoding.cpp
+
+PforCoding.o: PforCoding.cpp coding.cpp unpack.cpp
+	g++ $(CXXFLAGS) -c PforCoding.cpp
+
+RiceCoding.o: RiceCoding.cpp coding.cpp unpack.cpp
+	g++ $(CXXFLAGS) -c RiceCoding.cpp
+
+testCompresion.o: testCompresion.cpp RiceCoding.cpp PforCoding.cpp coding.cpp unpack.cpp
+	g++ $(CXXFLAGS) -c testCompresion.cpp
+
+testCompresion: testCompresion.o unpack.o RiceCoding.o PforCoding.o coding.o
+	g++ -o testCompresion $(OBJ)
+
+
+
+
+
+clean:
+	rm $(OBJ) pruebasCompress
+
+.PHONY = clean

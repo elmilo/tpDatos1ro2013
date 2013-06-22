@@ -15,6 +15,13 @@
 # Eclipse project's files
 *.project
 *.cproject
+
+#Temporales linux
+*.*~
+*~
+*.log
+*.aux
+
 /Debug
 
 =======
