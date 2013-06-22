@@ -1,5 +1,5 @@
-#ifndef NULL_CODING_H_
-#define NULL_CODING_H_
+#ifndef NULLCODING_H_
+#define NULLCODING_H_
 
 #include "coding.cpp"
 
@@ -15,4 +15,4 @@ private:
 
 };
 
-#endif /* NULL_CODING_H_ */
+#endif /* NULLCODING_H_ */
