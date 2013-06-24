@@ -3,6 +3,7 @@
 #define ARCHIVOINDICE_H_
 
 #include "ArchivoOffset.h"
+#include "ArchivoGenerico.h"
 
 namespace ArchivoIndice {
 	class Escritor {

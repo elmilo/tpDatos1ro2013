@@ -45,7 +45,7 @@ ArchivoTemporal::Lector::Lector(std::string ruta) {
 
 Termino ArchivoTemporal::Lector::leerTermino() {
 	size_t stringSize = archivo.leerSize();
-	tTermino token = archivo.leerString(stringSize);
+	tToken token = archivo.leerString(stringSize);
 	tDocId docId = archivo.leerUnsigned();
 	tFreq frecuencia = archivo.leerUnsigned();
 	Termino termino(token);

@@ -12,6 +12,7 @@ namespace ArchivoOffset {
 	class Escritor {
 	public:
 		Escritor(std::string ruta);
+		void abrir(std::string ruta);
 		void escribir(tPos pos);
 	private:
 		ArchivoGenerico::Escritor archivo;

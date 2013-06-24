@@ -26,6 +26,7 @@ public:
 	tBit popBit();
 	char popChar();
 	size_t popSize();
+	unsigned int popUnsigned();
 
 	/* Devuelve un array de bytes de tamaño:
 	 * la cantidad de bits dividido ocho.

@@ -11,7 +11,7 @@ void Indexador::Creador::correrEtapa1() {
 	Diccionario* diccionario;
 	ArchivoTemporal::Escritor escritor(TEMPDIR);
 	while (parser.tieneTerminos()) {
-		tTermino t = parser.nextTermino();
+		tToken t = parser.nextTermino();
 		tDocId d = parser.getDocIdActual();
 		tPos p = parser.getPosActual();
 		diccionario->agregar(t, d, p);
@@ -37,7 +37,7 @@ void Indexador::Creador::correrEtapa2() {
 }
 
 void Indexador::Buscador::buscar(std::string consulta) {
-	std::list<tTermino>* terminos = Normalizador::normalizarConsulta(consulta);
+	std::list<tToken>* terminos = Normalizador::normalizarConsulta(consulta);
 	tOffset offset = tabla.menor(terminos);
 
 	/*TODO: crear una estructura que guarde las posiciones iniciales de cada string

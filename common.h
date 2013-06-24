@@ -10,12 +10,14 @@
 //class Termino;
 
 typedef bool tBit;
-typedef std::string tTermino;
+typedef std::string tToken;
 typedef unsigned int tDocId;
 typedef unsigned int tPos;
 //typedef std::set<Termino*> tTermSet;
 typedef unsigned int tFreq;
 typedef unsigned int tOffset;
+typedef std::list<tFreq> ConjuntoFrecuencias;
+typedef ConjuntoFrecuencias::const_iterator IteradorFrecuencias;
 
 const unsigned int MAX_DIC_SIZE = 1024;
 const unsigned int BITS_PER_BYTE = 8;

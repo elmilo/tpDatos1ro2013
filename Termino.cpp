@@ -2,7 +2,7 @@
 
 /*************************************************************************************/
 /*************************************************************************************/
-Termino::Termino (tTermino unTermino) {
+Termino::Termino (tToken unTermino) {
 	token = unTermino;
 }
 
@@ -104,7 +104,7 @@ ConjuntoOcurrencias* Termino::listarPosiciones(tDocId unDocID) {
 	return ((Documento*) *buscarDocumento(unDocID))->getOcurrencias();
 }
 
-tTermino Termino::getToken() const {
+tToken Termino::getToken() const {
 	return token;
 }
 

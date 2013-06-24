@@ -14,7 +14,7 @@ Diccionario::~Diccionario() {
 
 /*************************************************************************************/
 /*************************************************************************************/
-bool Diccionario::existeTermino(tTermino unToken) {
+bool Diccionario::existeTermino(tToken unToken) {
 	return diccionario.count(unToken) > 0;
 }
 
@@ -25,7 +25,7 @@ void Diccionario::agregar(const Termino& unTermino) {
 	}
 }
 
-void Diccionario::agregar(tTermino unToken, tPos unaPosicion, tDocId unDocID) {
+void Diccionario::agregar(tToken unToken, tPos unaPosicion, tDocId unDocID) {
 	agregarTerminoSiNoExiste(unToken);
 	if(((Termino*) diccionario[unToken])->agregarPosicion(unaPosicion, unDocID)) {
 		memoriaOcupada += sizeof(Documento*) + sizeof(Documento);
@@ -43,10 +43,10 @@ unsigned Diccionario::getMemoriaOcupada() {
 	return memoriaOcupada;
 }
 
-bool Diccionario::agregarTerminoSiNoExiste(tTermino unToken) {
+bool Diccionario::agregarTerminoSiNoExiste(tToken unToken) {
 	if(!existeTermino(unToken)) {
 		diccionario[unToken] = new Termino(unToken);
-		memoriaOcupada += sizeof(tTermino) + sizeof(Termino*) + sizeof(Termino);
+		memoriaOcupada += sizeof(tToken) + sizeof(Termino*) + sizeof(Termino);
 		return true;
 	}
 	return false;

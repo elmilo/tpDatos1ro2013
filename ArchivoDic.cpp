@@ -10,10 +10,10 @@
 #include "Termino.h"
 
 void ArchivoDic::Escritor::escribir(Diccionario* diccionario) {
-	IteradorDiccionario it = diccionario->iterator();
-	for (; it != diccionario->end(); it++) {
-		archivo.escribirSize((*it)->getTermino().size());
-		archivo.escribirString((*it)->getTermino());
+	IteradorTerminos it = diccionario->getTerminos()->const_iterator;
+	for (; it != diccionario->getTerminos()->end(); it++) {
+		archivo.escribirSize((*it).second->getToken().size());
+		archivo.escribirString((*it).second->getToken());
 	}
 }
 

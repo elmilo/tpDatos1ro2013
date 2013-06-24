@@ -1,6 +1,8 @@
 #ifndef ARCHIVOGENERICO_H_
 #define ARCHIVOGENERICO_H_
 
+#include "ArchivoGenerico.h"
+
 namespace ArchivoGenerico {
 	void empaquetarUnsigned(char*& array, unsigned int integer);
 	void empaquetarSize(char*& array, unsigned int integer);
@@ -15,6 +17,7 @@ namespace ArchivoGenerico {
 		void escribirSize(size_t integer);
 		void escribirString(std::string string);
 		void escribirBit(tBit bit);
+		size_t getPos();
 
 		/*Rellena con varios 0's, y un 1 final*/
 		void rellenarBits();

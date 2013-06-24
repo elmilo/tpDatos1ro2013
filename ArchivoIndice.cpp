@@ -15,24 +15,18 @@ void ArchivoIndice::Escritor::escribir(Diccionario* diccionario) {
 	while(it != diccionario->getTerminos()->end()) {
 		Termino* termino = *it;
 		escritorOffset.escribir(escritorIndice.getPos());
-		BitStream* stream = crearBloque(Termino* termino);
+		BitStream* stream = crearBloque(termino);
 		escritorIndice.escribirSize(stream->byteSize());
 		escritorIndice.escribirStream(stream);
-		delete bloque;
 	}
 }
 
 BitStream* ArchivoIndice::Escritor::crearBloque(Termino* termino) {
-	BitStream* stream = new BitStream();
-	BloqueIndice bloque(termino);
-	std::list<tOffset>* offsetsFragmentos = bloque.getOffsetsFragmentos();
-	stream->appendSize(offsetsFragmentos->size());
-	std::list<tOffset>::const_iterator it = bloque.getOffsetsFragmentos()->const_iterator;
-	for(; it != offsetsFragmentos->end(); it++) {
-		stream->appendUnsigned(*it);
-	}
-	stream->appendStream(bloque.getFragmentos());
-	return stream;
+	BloqueIndice::Creador creadorBloque(termino);
+	BitStream* bloque = creadorBloque.getBloque();
+	escritorIndice.escribirSize(bloque->byteSize());
+	escritorIndice.escribirStream(bloque);
+	return bloque;
 }
 
 ArchivoIndice::Lector::Lector(std::string rutaIndice) {
@@ -43,8 +37,8 @@ Termino* ArchivoIndice::Lector::leerBloque(tOffset offset) {
 	archivo.seek(offset);
 	size_t sizeBloque = archivo.leerSize();
 	BitStream* stream = archivo.leerStream(sizeBloque);
-	BloqueIndice bloque(stream);
-	Termino* termino = bloque.getTermino();
+	BloqueIndice::Lector lectorBloque(stream);
+	Termino* termino = lectorBloque.getTermino();
 	return termino;
 }
 
