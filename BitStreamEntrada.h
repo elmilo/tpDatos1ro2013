@@ -16,6 +16,9 @@ class BitStreamEntrada {
          ifstream archEntrada;
          bitset<8> bitBloque;
          int posBit;
+         char* buffer;
+         int sizeBuffer;
+         int posBuffer;
 
  public:
 
@@ -25,7 +28,13 @@ class BitStreamEntrada {
          void avanzarPosCaracter();
          void apuntarPosArch(int pos);
          int posEnArchivo();
+         void cargarBloqueAmemoria(int tamanioBuffer);
          bool terminoArch();
+
+         bool leerBitDeBuffer();
+         void cargarBloqueAmemoria();
+         int tamanioArchivo();
+         void avanzarPosCaracterDeBuffer();
          virtual ~BitStreamEntrada();
  };
 

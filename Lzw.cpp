@@ -1,10 +1,9 @@
 #include "Lzw.h"
 
 BitStreamSalida streamSalida("diccionario.lzw");
-BitStreamEntrada streamEntrada("diccionario.lzw");
 
 Lzw::Lzw(){
-sizeBuffer=4785;
+streamEntrada=new BitStreamEntrada("diccionario.lzw");
 }
 
 void Lzw::crearDiccionarioCompresion(){
@@ -116,7 +115,7 @@ codBinario=char2bin(codEnDecimal);
 
 //si es un numero mayor a la tabla se graba primero el 1
 if (codEnDecimal<256){
-    streamSalida.escribirBit(esUno(0));}
+    streamSalida.escribirBit(false);}
    else {
        streamSalida.escribirBit(true);}
 
@@ -130,14 +129,21 @@ if (codEnDecimal<256){
 int codDecimal;
 char bitChar;
 bitset<9> bitSet;
-int i;
 
 int Lzw::leerUnCodigo(){
 
-    for(i=8;i>=0;i--){
 
-         bitSet.set(i,streamEntrada.leerBit());
-         }
+         bitSet.set(8,streamEntrada->leerBitDeBuffer());
+         bitSet.set(7,streamEntrada->leerBitDeBuffer());
+         bitSet.set(6,streamEntrada->leerBitDeBuffer());
+         bitSet.set(5,streamEntrada->leerBitDeBuffer());
+         bitSet.set(4,streamEntrada->leerBitDeBuffer());
+         bitSet.set(3,streamEntrada->leerBitDeBuffer());
+         bitSet.set(2,streamEntrada->leerBitDeBuffer());
+         bitSet.set(1,streamEntrada->leerBitDeBuffer());
+         bitSet.set(0,streamEntrada->leerBitDeBuffer());
+
+
 
 return bitSet.to_ulong();
 }
@@ -147,6 +153,9 @@ string Lzw::descomprimirBloque(){
 vector<int_fast16_t> buffer;
 
 int codigo=0;
+
+streamEntrada->cargarBloqueAmemoria(streamEntrada->tamanioArchivo());
+
 
 borrarTablaDescompresion();
 crearDiccionarioDescompresion();
@@ -158,20 +167,22 @@ crearDiccionarioDescompresion();
  string result = w;
 string entry;
 
+int k;
 
 while(codigo!=255){
 
 codigo=leerUnCodigo();
 
-        if (dictSize>512){
+//clear diccionario
+    if (dictSize>512){
         dictSize=256;
-  dictionaryD.erase(it,dictionaryD.end());
+        dictionaryD.erase(it,dictionaryD.end());
            }
 
-    int k = codigo;
-entry = dictionaryD[k];
+    k = codigo;
+    entry = dictionaryD[k];
 
-   result += entry;
+    result += entry;
 
     // Add w+entry[0] to the dictionary.
     dictionaryD[dictSize++] = w + entry[0];
@@ -216,6 +227,11 @@ void Lzw::comprimirBloque(string bloque){
 
 void Lzw::comprimirArchivo(const char* nomArch){
     archEntrada.open(nomArch,ios_base::in|ios::binary);
+
+    archEntrada.seekg (0, archEntrada.end);
+    sizeBuffer = archEntrada.tellg();
+    archEntrada.seekg (0, archEntrada.beg);
+
     borrarTablaCompresion();
     crearDiccionarioCompresion();
 

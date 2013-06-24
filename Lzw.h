@@ -24,10 +24,11 @@ private:
     map<int,string> dictionaryD;
     int dictSize;
     int sizeBuffer;
+    BitStreamEntrada* streamEntrada;
 
-    public:
 
-        Lzw();
+
+
         void comprimirArchivo(const char* nomArch);
         void crearDiccionarioCompresion();
         void crearDiccionarioDescompresion();
@@ -37,7 +38,7 @@ private:
         string char2bin(byte cData);
         void escribirUnCodigo(int codEnDecimal);
         void escribirBloque(vector<int> vecSalida);
-        void comprimirBloque(string bloque);
+
         bool esUno(char bitChar);
 
         template <typename Iterator>
@@ -46,9 +47,14 @@ private:
         char convertirEnBit(bool bitBool);
 
         int leerUnCodigo();
+
+
+
+    public:
+
+        Lzw();
+        void comprimirBloque(string bloque);
         string descomprimirBloque();
-
-
 
         virtual ~Lzw();
 

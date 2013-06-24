@@ -80,3 +80,4 @@ void BitStreamSalida::cerrarArchivo()
  {
      archSalida.close();
  }
+
